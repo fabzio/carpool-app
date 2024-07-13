@@ -18,6 +18,7 @@
     "@farmfe/core": "1.2.4",
     "@farmfe/js-plugin-postcss": "1.7.0",
     "@farmfe/plugin-react": "1.1.0",
+    "@types/node": "20.14.10",
     "@types/react": "18",
     "@types/react-dom": "18",
     "autoprefixer": "10.4.19",
