@@ -1,0 +1,4 @@
+{
+  "conventionalCommits.scopes": ["package.json", "actions"],
+  "css.customData": [".vscode/tailwind.json"]
+}
