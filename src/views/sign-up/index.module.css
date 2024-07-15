@@ -5,6 +5,6 @@
     @apply font-bold text-center text-xl mb-5;
   }
   .chooseZoneTxt {
-    @apply w-full text-left;
+    @apply w-full text-left mb-2;
   }
 }
