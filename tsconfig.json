@@ -25,6 +25,8 @@
       "@components": ["./components"],
       "@interfaces/*": ["./interfaces/*"],
       "@services/*": ["./services/*"],
+      "@store/*": ["./store/*"],
+      "@hooks": ["./hooks"],
       "@utils/*": ["./utils/*"]
     }
   },

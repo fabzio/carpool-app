@@ -10,6 +10,8 @@ export default defineConfig({
         "@components": path.resolve(process.cwd(), "src/components"),
         "@interfaces": path.resolve(process.cwd(), "src/interfaces"),
         "@services": path.resolve(process.cwd(), "src/services"),
+        "@store": path.resolve(process.cwd(), "src/store"),
+        "@hooks": path.resolve(process.cwd(), "src/hooks"),
         "@utils": path.resolve(process.cwd(), "src/utils"),
       },
     },

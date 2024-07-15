@@ -1,10 +1,18 @@
+import useStore from "@store/index";
+
 export default function Header() {
+  const { theme, switchTheme } = useStore((state) => state);
+
   return (
     <header className="flex justify-between">
       <h1 className="font-bold text-4xl text-left pl-2 pt-2">Carpool 🚗 </h1>
       <label className="swap swap-rotate pr-2 pt-2">
-        {/* this hidden checkbox controls the state */}
-        <input type="checkbox" className="theme-controller" value="dracula" />
+        <input
+          type="checkbox"
+          className="theme-controller"
+          checked={!(theme === "dracula")}
+          onChange={switchTheme}
+        />
 
         {/* sun icon */}
         <svg
