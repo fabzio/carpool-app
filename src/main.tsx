@@ -1,8 +1,7 @@
 import { useEffect } from "react";
-
 import { usePrefersDarkMode, useSelector } from "@hooks";
-import Header from "./layout/Header";
 import SingUp from "./views/sign-up";
+import MainLayout from "./layout/MainLayout";
 
 export function Main() {
   const { switchTheme, themeChosen, theme } = useSelector(
@@ -15,9 +14,10 @@ export function Main() {
     }
   }, [prefersDarkMode, switchTheme]);
   return (
-    <div data-theme={theme} className="w-full h-svh  flex flex-col">
-      <Header />
-      <SingUp />
+    <div data-theme={theme} className="w-full h-svh ">
+      <MainLayout>
+        <SingUp />
+      </MainLayout>
     </div>
   );
 }
