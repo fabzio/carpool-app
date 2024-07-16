@@ -6,9 +6,9 @@ interface Props {
 }
 export default function MainLayout({ children }: Props) {
   return (
-    <div className="h-svh w-full flex flex-col justify-around">
+    <div className="h-svh w-full flex flex-col">
       <Header />
-      {children}
+      <main className="flex-1">{children}</main>
       <Footer />
     </div>
   );
