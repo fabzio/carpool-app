@@ -1,25 +1,6 @@
-import styles from "./index.module.css";
-import { useQuery } from "@tanstack/react-query";
-import { Error, Loading } from "@components";
-import ZoneList from "./choose-zone/ZoneList";
-import ZoneService from "@services/zone.service";
+import ChooseZone from "./choose-zone";
 
 export default function SingUp() {
-  const {
-    data: zones,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["zones"],
-    queryFn: ZoneService.getZones,
-  });
-  if (error) return <Error />;
 
-  return (
-    <div className={styles.container}>
-      <h3 className={styles.welcomeTxt}>Empecemos</h3>
-      <p className={styles.chooseZoneTxt}>Elige tu zona para continuar</p>
-      {isLoading ? <Loading /> : <ZoneList zones={zones!} />}
-    </div>
-  );
+  return <ChooseZone />;
 }
