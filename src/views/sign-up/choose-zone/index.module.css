@@ -1,5 +1,5 @@
 .container {
-  @apply w-full h-3/4 my-auto px-4 flex flex-col items-center;
+  @apply w-full h-3/4 mt-10 px-4 flex flex-col items-center;
 
   .welcomeTxt {
     @apply font-bold text-center text-xl mb-5;

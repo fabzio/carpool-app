@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { usePrefersDarkMode, useSelector } from "@hooks";
-import MainLayout from "./layout/MainLayout";
+
 import SingUp from "./views/sign-up";
+import MainLayout from "./layout/MainLayout";
 
 export function Main() {
   const { switchTheme, themeChosen, theme } = useSelector(
