@@ -1,4 +1,4 @@
-import { Zone } from "@interfaces/zone.interface";
+import { Zone } from "@interfaces/models/zone.interface";
 import { http } from "@utils/http";
 
 class ZoneService {
