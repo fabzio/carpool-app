@@ -1,4 +1,3 @@
-
 import SingUp from "./views/sign-up";
 import MainLayout from "./layout/MainLayout";
 

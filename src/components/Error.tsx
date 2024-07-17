@@ -1,6 +1,6 @@
 export default function Error() {
   return (
-    <div className="w-full h-svh flex justify-center items-center flex-col">
+    <div className="w-full h-full flex justify-center items-center flex-col">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="64"
@@ -14,8 +14,8 @@ export default function Error() {
         <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
         <path d="M12 6l-2 4l4 3l-2 4v3" />
       </svg>
-      <h2 className="font-bold text-3xl text-center">
-        No eres tú, somos nosotros...
+      <h2 className="font-bold text-3xl text-balance">
+        No eres tú, es el server
       </h2>
       <p className="mt-2  text-center text-balance">
         Algo salió mal, mira unos gatitos tiernos mientras lo arreglamos
