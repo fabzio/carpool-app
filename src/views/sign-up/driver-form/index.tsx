@@ -1,3 +1,3 @@
 export default function DriverForm() {
-  return <h1> Passenger Form</h1>;
+  return <h1> Driver Form</h1>;
 }

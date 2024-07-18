@@ -18,6 +18,7 @@ const useSelector = <T>(selector: (state: GlobalStore) => T): T => {
     signUp: {
       createUserData: useStore((state: StoreType) => state.createUserData),
       setZone: useStore((state: StoreType) => state.setZone),
+      setUserData: useStore((state: StoreType) => state.setUserData),
     },
   };
   return selector(global);
