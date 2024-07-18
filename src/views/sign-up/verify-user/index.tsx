@@ -38,6 +38,16 @@ export default function VerifyUser() {
         Vamos a conocernos ;)
       </h2>
       <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
+        <label htmlFor="phone" className="text-lg mb-1">
+          Número de contacto
+        </label>
+        <input
+          id="phone"
+          type="tel"
+          className="input input-bordered"
+          required
+          disabled={isLoading || isFetched}
+        />
         <label htmlFor="code" className="text-lg mb-1">
           Ingresa tu código PUCP
         </label>
