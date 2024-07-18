@@ -10,6 +10,7 @@
     "clean": "farm clean"
   },
   "dependencies": {
+    "@tabler/icons-react": "3.11.0",
     "@tanstack/react-query": "5.51.1",
     "react": "18",
     "react-dom": "18",
