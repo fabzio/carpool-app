@@ -1,12 +1,11 @@
-import { User } from "@interfaces/models/user.interface";
-
 export interface SignUpStore {
-  createUserData: UserData | null;
-  setZone: (zoneID: string) => void;
-  setUserData: (data: UserData) => void;
+  createUserData: SignUpData | null;
+  setZone: (zoneID: number) => void;
+  setUserData: (data: Partial<SignUpData>) => void;
 }
 
-export type UserData = Pick<
-  User,
-  "name" | "lastname" | "email" | "faculty" | "code" | "zoneId"
-> & { role: "driver" | "passenger" };
+export type SignUpData = {
+  userId: string;
+  zoneId: number;
+  role: "driver" | "passenger";
+};

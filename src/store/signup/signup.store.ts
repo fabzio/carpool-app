@@ -1,26 +1,25 @@
 import { SliceStore } from "../types";
-import { SignUpStore } from "./types";
+import { SignUpData, SignUpStore } from "./types";
 
 const createSignUpSlice: SliceStore<SignUpStore> = (set, get) => ({
   createUserData: null,
-
-  setZone: (zoneID: string) => {
+  setZone: (zoneId: number) => {
     set(() => ({
       createUserData: {
         ...get().createUserData,
-        zoneId: zoneID,
+        zoneId: zoneId,
       } as SignUpStore["createUserData"],
     }));
   },
 
-  setUserData: (data) => {
+  setUserData: (data: Partial<SignUpData>) => {
     set(() => ({
       createUserData: {
         ...get().createUserData,
         ...data,
       } as SignUpStore["createUserData"],
     }));
-  }
+  },
 });
 
 export default createSignUpSlice;

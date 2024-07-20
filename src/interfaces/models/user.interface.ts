@@ -10,6 +10,6 @@ export interface User {
   password: string;
   email: string;
   state: UserState;
-  zoneId: string;
+  zoneId: number;
   createdAt: Date;
 }

@@ -25,9 +25,6 @@ class Http {
 
     try {
       const response = await fetch(`${this.baseUrl}${url}`, options);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
       return await response.json();
     } catch (error) {
       throw new Error(`Fetch error: ${(error as Error).message}`);

@@ -1,21 +1,29 @@
 import { useSelector } from "@hooks";
-import { UserData } from "@store/signup/types";
+import { SignUpData } from "@store/signup/types";
+
 import { IconSteeringWheel, IconUser } from "@tabler/icons-react";
+import { capitalize } from "@utils/capitalize";
 
 interface Props {
-  data: UserData;
+  userId: string;
+  name: string;
 }
 
-export default function SelectRole({ data }: Props) {
+export default function SelectRole({ userId, name }: Props) {
   const { setUserData } = useSelector((state) => state.signUp);
   const handleContinue = (role: "driver" | "passenger") => () => {
-    setUserData({ ...(data as Omit<UserData, "role">), role } as UserData);
+    const userData: Partial<SignUpData> = {
+      userId,
+      role,
+    };
+    setUserData(userData);
   };
   return (
     <div className=" flex flex-col items-center justify-center">
-      <h3 className="text-center text-balance">
-        Hola! {(data as { name: string }).name} ¿Cómo usarás la app?
+      <h3 className="font-bold text-center text-2xl">
+        ¡Bienvenid@ a Carpool, {capitalize(name)}! 😁
       </h3>
+      <h3 className="text-center text-balance">¿Cómo usarás la app?</h3>
       <div className="w-full flex gap-5 h-32 mt-3">
         <button className="flex-grow " onClick={handleContinue("driver")}>
           <div className="card h-full w-full flex flex-col items-center gap-2  shadow-xl">
