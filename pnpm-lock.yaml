@@ -23,6 +23,9 @@ importers:
       react-router-dom:
         specifier: 6.24.1
         version: 6.24.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-use-cookie:
+        specifier: 1.6.1
+        version: 1.6.1(react@18.3.1)
       zustand:
         specifier: 4.5.4
         version: 4.5.4(@types/react@18.3.3)(react@18.3.1)
@@ -1120,6 +1123,12 @@ packages:
   react-router@6.24.1:
     resolution: {integrity: sha512-PTXFXGK2pyXpHzVo3rR9H7ip4lSPZZc0bHG5CARmj65fTT6qG7sTngmb6lcYu1gf3y/8KxORoy9yn59pGpCnpg==}
     engines: {node: '>=14.0.0'}
+    peerDependencies:
+      react: '>=16.8'
+
+  react-use-cookie@1.6.1:
+    resolution: {integrity: sha512-77bENFpc+pi1roLJIrRvekprB4IjwG1Mowir0QdbwA0pDjgMtp3Ya9E1H9dJAisCxBvTZih6k5+2SSVo9BR2qw==}
+    engines: {node: '>=8', npm: '>=5'}
     peerDependencies:
       react: '>=16.8'
 
@@ -2417,6 +2426,10 @@ snapshots:
   react-router@6.24.1(react@18.3.1):
     dependencies:
       '@remix-run/router': 1.17.1
+      react: 18.3.1
+
+  react-use-cookie@1.6.1(react@18.3.1):
+    dependencies:
       react: 18.3.1
 
   react@18.3.1:
