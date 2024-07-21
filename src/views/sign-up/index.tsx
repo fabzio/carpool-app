@@ -12,7 +12,7 @@ const steps = [
   { driver: <DriverForm />, passenger: <PassengerForm /> },
 ];
 
-export default function SingUp() {
+export default function SignUp() {
   const { createUserData } = useSelector((state) => state.signUp);
   const [step, setStep] = useState(1);
 
