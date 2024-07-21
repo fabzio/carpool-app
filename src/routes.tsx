@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import MainLayout from "./layout/MainLayout";
 import { LazyHome, LazySignUp } from "./views/lazy";
 import AuthProvider from "./contexts/AuthProvider";
@@ -20,6 +20,10 @@ const router = createBrowserRouter([
       </AuthProvider>
     ),
     children: [
+      {
+        path: "/",
+        element: <Navigate to="/home" />,
+      },
       {
         path: "/home",
         element: <LazyHome />,
