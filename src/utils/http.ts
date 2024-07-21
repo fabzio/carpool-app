@@ -1,12 +1,12 @@
 import { ResponseAPI } from "@interfaces/responseAPI.interface";
-
+import { API_PORT, API_URL } from "../config/index";
 
 interface Headers {
   [key: string]: string;
 }
 
 class Http {
-  private baseUrl: string = "http://192.168.1.94:1234/api/v1/";
+  private baseUrl: string = `http://${API_URL}:${API_PORT}/api/v1/`;
 
   private async request(
     method: string,

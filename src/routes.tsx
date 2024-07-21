@@ -1,14 +1,31 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "./layout/MainLayout";
-import { LazySignUp } from "./views/lazy";
+import { LazyHome, LazySignUp } from "./views/lazy";
 
 const router = createBrowserRouter([
   {
-    element: <MainLayout />,
+    element: <MainLayout simple />,
     children: [
       {
         path: "/signup",
         element: <LazySignUp />,
+      },
+    ],
+  },
+  {
+    element: <MainLayout />,
+    children: [
+      {
+        path: "/home",
+        element: <LazyHome />,
+      },
+      {
+        path: "/history",
+        element: <div>History</div>,
+      },
+      {
+        path: "/profile",
+        element: <div>Profile</div>,
       },
     ],
   },
