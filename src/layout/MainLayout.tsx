@@ -11,9 +11,9 @@ interface Props {
 
 export default function MainLayout({ simple }: Props) {
   return (
-    <div className="h-svh w-full flex flex-col">
+    <div className="min-h-svh w-full flex flex-col">
       <Header />
-      <main className="flex-1">
+      <main className="flex-grow py-12">
         <Suspense fallback={<Loading />}>
           <Outlet />
         </Suspense>
