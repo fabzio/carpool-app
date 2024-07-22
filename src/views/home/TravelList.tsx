@@ -1,8 +1,8 @@
-import { Error, Loading, TravelCard } from "@components";
+import { Error, Loading } from "@components";
 import { useSelector } from "@hooks";
 import { useQuery } from "@tanstack/react-query";
 import { http } from "@utils/http";
-import { Props } from "./TravelCard";
+import TravelCard, { Props } from "./TravelCard";
 
 export default function TravelList() {
   const { user } = useSelector((state) => state.user);
