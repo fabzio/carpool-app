@@ -4,7 +4,7 @@ import { http } from "@utils/http";
 class ZoneService {
   public static async getZones(): Promise<Zone[]> {
     try {
-      const res = await http.get("/zone");
+      const res = await http.get("zone");
       return res.data as Zone[];
     } catch (error) {
       throw new Error();
