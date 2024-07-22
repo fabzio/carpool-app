@@ -12,6 +12,7 @@
   "dependencies": {
     "@tabler/icons-react": "3.11.0",
     "@tanstack/react-query": "5.51.1",
+    "moment": "2.30.1",
     "react": "18",
     "react-dom": "18",
     "react-router-dom": "6.24.1",
