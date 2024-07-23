@@ -28,7 +28,7 @@ export default function SignUp() {
     setStep((curr) => (curr > 1 ? curr - 1 : 1));
   };
   return (
-    <>
+    <section>
       <div>
         <a
           className={`${
@@ -40,11 +40,13 @@ export default function SignUp() {
           Volver
         </a>
       </div>
-      {step !== 3
-        ? steps[step - 1]
-        : (steps[2] as Extract<typeof steps, Element>)[
-            createUserData?.role as "driver" | "passenger"
-          ]}
-    </>
+      <>
+        {step !== 3
+          ? steps[step - 1]
+          : (steps[2] as Extract<typeof steps, Element>)[
+              createUserData?.role as "driver" | "passenger"
+            ]}
+      </>
+    </section>
   );
 }

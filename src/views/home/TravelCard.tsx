@@ -1,66 +1,90 @@
-import { IconUser, IconUserFilled } from "@tabler/icons-react";
+import { IconClock, IconUser, IconUserFilled } from "@tabler/icons-react";
 import { capitalize } from "@utils/capitalize";
 import { formatCurrency } from "@utils/formatCurrency";
 import moment from "moment";
 
-export interface Props {
-  travel_id: string;
-  travel_type: string;
-  name: string;
-  direction: string;
-  travel_date: string;
-  fee?: number;
-  seats: number;
-  free_seats?: number;
-}
 
 export default function TravelCard({
   name,
   direction,
   fee,
-  travel_date,
-  travel_type,
+  travelDate,
+  travelType,
   seats,
-  free_seats,
-}: Props) {
-  const isOffer = travel_type === "offer";
-
+  freeSeats,
+}: GenericTravel) {
+  const isOffer = travelType === "offer";
+  const offOfferText = "Sale";
+  const landsOfferText = "Llega";
+  const offRequestText = "Quiere salir";
+  const landsRequestText = "Quiere llegar";
   return (
-    <article className="card card-compact shadow-xl bg-base-100 ">
-      <div className="card-body flex flex-col">
-        <div className="flex justify-end h-3 font-bold text-base">
-          {fee && formatCurrency(fee)}
-        </div>
-        <header className="flex items-center gap-2">
-          <h2 className="card-title font-bold text-2xl">
-            {capitalize(name.split(" ")[0])}
-          </h2>
-          <span className="f">{isOffer ? "🚘" : "🙋"}</span>
+    <article className="card card-compact shadow-xl">
+      <div className="card-body">
+        <header className="flex flex-col">
+          <div className="flex justify-between h-4 items-center">
+            <time
+              className="text-accent font-bold"
+              dateTime={moment(travelDate).format()}
+            >
+              {moment(travelDate).isSame(moment(), "day")
+                ? "Hoy"
+                : moment(travelDate).isSame(moment().add(1, "day"), "day")
+                ? "Mañana"
+                : moment(travelDate).format("DD/MM/YYYY")}
+            </time>
+            <span className="font-bold text-base">
+              {fee && formatCurrency(fee)}
+            </span>
+          </div>
+          <div className="flex items-center gap-2">
+            <h2 className="card-title font-bold text-2xl">
+              {capitalize(name.split(" ")[0])}
+            </h2>
+            <span aria-label={isOffer ? "offer" : "request"}>
+              {isOffer ? "🚘" : "🙋"}
+            </span>
+          </div>
         </header>
         <main className="flex flex-col">
-          <span
-            className={`badge ${
-              direction ? "badge-primary" : "badge-secondary"
-            }`}
-          >
-            {direction ? "Ida" : "Vuelta"}
-          </span>
-          <div className="flex py-1">
-            {Array.from({ length: isOffer ? seats - free_seats! : seats }).map(
-              (_, idx) => (
-                <>
+          <section>
+            <span
+              className={`badge ${
+                direction ? "badge-primary" : "badge-secondary"
+              }`}
+            >
+              {direction ? "Ida" : "Vuelta"}
+            </span>
+          </section>
+          <section>
+            <div className="flex py-1" aria-label="seat availability">
+              {Array.from({ length: isOffer ? seats - freeSeats! : seats }).map(
+                (_, idx) => (
                   <IconUserFilled key={idx} />
-                </>
-              )
-            )}
-            {Array.from({ length: free_seats! }).map((_, idx) => (
-              <>
+                )
+              )}
+              {Array.from({ length: freeSeats! }).map((_, idx) => (
                 <IconUser key={idx} />
-              </>
-            ))}
-          </div>
+              ))}
+            </div>
+          </section>
+          <section className="flex flex-col">
+            <time className="min-h-11 text-base-content flex gap-1 text-opacity-80 pt-1">
+              <IconClock size={16} strokeWidth={3} />
+              <span className="text-pretty">
+                {(isOffer
+                  ? direction
+                    ? offOfferText
+                    : landsOfferText
+                  : direction
+                  ? offRequestText
+                  : landsRequestText) +
+                  " " +
+                  moment(travelDate).format("hh:mm a")}
+              </span>
+            </time>
+          </section>
         </main>
-        {moment(travel_date).fromNow()}
       </div>
     </article>
   );

@@ -1,5 +1,6 @@
 import { ResponseAPI } from "@interfaces/responseAPI.interface";
 import { http } from "@utils/http";
+import { getCookie } from "react-use-cookie";
 
 class AuthService {
   public static async logIn(data: {
@@ -23,16 +24,14 @@ class AuthService {
     }
   }
 
-  public static async verify(token: string): Promise<ResponseAPI> {
-    console.log(this);
+  public static async verify(): Promise<ResponseAPI> {
+    const token = getCookie("tkn");
     try {
       const res = await http.get("auth/verify", {
         Authorization: `Bearer ${token}`,
       });
-      console.log(res);
       return res;
     } catch (error) {
-      console.log(error);
       throw new Error();
     }
   }
