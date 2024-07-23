@@ -1,5 +1,7 @@
 export interface ThemeStore {
+  blur: boolean;
   theme: string;
-  switchTheme: () => void;
   themeChosen: boolean;
+  switchTheme: () => void;
+  switchBlur: () => void;
 }
