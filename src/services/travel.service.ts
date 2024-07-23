@@ -5,7 +5,6 @@ import { getCookie } from "react-use-cookie";
 class TravelService {
   public static async getTravelList(): Promise<ResponseAPI> {
     const token = getCookie("tkn");
-    console.log(token);
     try {
       const res = await http.get(`travel`, {
         Authorization: `Bearer ${token}`,
