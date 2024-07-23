@@ -8,7 +8,7 @@ export default function Home() {
   const handleOpen = () => setVisible(true);
   const handleClose = () => setVisible(false);
   return (
-    <div className="h-full relative">
+    <div className="h-full">
       <TravelList />
       <AddButton onClick={handleOpen} />
       <TravelModal visible={visible} handleClose={handleClose} />

@@ -13,7 +13,7 @@ export default function MainLayout({ simple }: Props) {
   return (
     <div className="min-h-svh w-full flex flex-col">
       <Header />
-      <main className="flex-grow py-12">
+      <main className="flex-grow w-full py-12 grid items-stretch">
         <Suspense fallback={<Loading />}>
           <Outlet />
         </Suspense>
