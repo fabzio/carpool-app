@@ -1,6 +1,6 @@
 import { Driver } from "@interfaces/models/driver.interface";
 
-interface UserStore extends Partial<Driver> {
+interface UserStore {
   type: "passenger" | "driver";
   fetched: boolean;
   user: Partial<Driver> | null;
