@@ -81,11 +81,11 @@ export default function TravelCard({
             <span className="">
               {isOffer
                 ? direction
-                  ? offOfferText
-                  : landsOfferText
+                  ? landsOfferText
+                  : offOfferText
                 : direction
-                ? offRequestText
-                : landsRequestText}
+                ? landsRequestText
+                : offRequestText}
             </span>
             <time className="flex justify-end gap-1 font-bold">
               <IconClock size={16} strokeWidth={3} />
