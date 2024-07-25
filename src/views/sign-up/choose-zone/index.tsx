@@ -14,15 +14,13 @@ export default function ChooseZone() {
     queryFn: ZoneService.getZones,
   });
 
-
-
   if (error) return <Error />;
 
   return (
     <div className={styles.container}>
       <h3 className={styles.welcomeTxt}>Empecemos</h3>
       <p className={styles.chooseZoneTxt}>Elige tu zona para continuar</p>
-      {isLoading ? <Loading /> : <ZoneList zones={zones!} />}
+      {isLoading ? <Loading elem /> : <ZoneList zones={zones!} />}
     </div>
   );
 }
