@@ -16,19 +16,6 @@ export const getNextIntervalTime = () => {
   // Asegurarse de que el intervalo esté dentro del rango permitido
   return nextInterval.format("HH:mm");
 };
-export const getNext10MinInterval = () => {
-  // Obtener el momento actual
-  const now = moment();
-
-  // Redondear el minuto hacia el siguiente múltiplo de 10
-  const nextInterval = now
-    .clone()
-    .startOf("minute")
-    .add(10 - (now.minute() % 10), "minutes");
-
-  // Formatear el resultado en el formato 'HH:mm' para el atributo min del input
-  return nextInterval.format("HH:mm");
-};
 
 export const getNextMultipleOf10Minutes = () => {
   const now = moment();

@@ -1,7 +1,6 @@
 import moment from "moment";
 import {
   getDefaultDirectionValue,
-  getNext10MinInterval,
   getNextIntervalTime,
 } from "./utils";
 import { TravelDirection } from "@interfaces/enums/TravelDirection";
@@ -19,6 +18,7 @@ export default function SimpleForm() {
           id="day"
           className="select select-bordered w-full max-w-xs"
           defaultValue={isAfter10PM ? tomorrow : today}
+          required
         >
           <option value={today}>Hoy</option>
           <option value={tomorrow}>Mañana</option>
@@ -29,11 +29,10 @@ export default function SimpleForm() {
           type="time"
           name="travelTime"
           id="travelTime"
-          required
           className="input input-bordered"
           step={60 * 10}
-          min={getNext10MinInterval()}
           defaultValue={getNextIntervalTime()}
+          required
         />
       </label>
       <div className="form-control">
@@ -42,11 +41,12 @@ export default function SimpleForm() {
           <input
             type="radio"
             name="direction"
-            className="radio"
+            className="radio radio-primary"
             value={TravelDirection.INBOUND}
             defaultChecked={
               getDefaultDirectionValue() === TravelDirection.INBOUND
             }
+            required
           />
         </label>
       </div>
@@ -56,11 +56,12 @@ export default function SimpleForm() {
           <input
             type="radio"
             name="direction"
-            className="radio"
+            className="radio radio-primary"
             value={TravelDirection.OUTBOUND}
             defaultChecked={
               getDefaultDirectionValue() === TravelDirection.OUTBOUND
             }
+            required
           />
         </label>
       </div>

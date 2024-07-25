@@ -57,10 +57,6 @@ export default function FullForm() {
           id="travelTime"
           className="input input-bordered"
           step={60 * 10}
-          min={Math.min(
-            moment(getNextIntervalTime()).unix(),
-            moment(getNextMultipleOf10Minutes()).unix()
-          )}
           defaultValue={getNextIntervalTime()}
           required
         />
@@ -71,7 +67,7 @@ export default function FullForm() {
           <input
             type="radio"
             name="direction"
-            className="radio"
+            className="radio radio-primary"
             value={TravelDirection.INBOUND}
             defaultChecked={
               getDefaultDirectionValue() === TravelDirection.INBOUND
@@ -86,7 +82,7 @@ export default function FullForm() {
           <input
             type="radio"
             name="direction"
-            className="radio"
+            className="radio radio-primary"
             value={TravelDirection.OUTBOUND}
             defaultChecked={
               getDefaultDirectionValue() === TravelDirection.OUTBOUND
