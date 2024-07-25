@@ -3,22 +3,22 @@ import { AddButton, Error, Loading, TravelModal } from "@components";
 import { useState } from "react";
 import TravelList from "./TravelList";
 import { useSelector } from "@hooks";
-import OfferModal from "./OfferModal";
+import OfferModal from "./offer-modal";
 import { useQuery } from "@tanstack/react-query";
 import TravelService from "@services/travel.service";
 
 export default function Home() {
   const [visible, setVisible] = useState(false);
   const { switchBlur } = useSelector((state) => state.theme);
-  const { type,user } = useSelector((state) => state.user);
-  const zoneId = user?.zoneId!;
+  const { type } = useSelector((state) => state.user);
+
   const {
     data: travelListResponse,
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["travels", zoneId],
-    queryFn: TravelService.getTravelList,
+    queryKey: ["travels"],
+    queryFn: TravelService.getTravelList
   });
 
   const handleOpen = () => {

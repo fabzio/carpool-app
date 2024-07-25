@@ -1,0 +1,22 @@
+form{
+  .formActions{
+    @apply flex justify-around items-center col-span-4;
+
+    label {
+
+      .expressText{
+        transition: all 0.3s;
+      }
+
+      .expressTextOn{
+        text-shadow: 0 0 0.5rem #fff;
+      }
+
+      .expressTextOff{
+        @apply text-base-content text-opacity-50;
+      }
+
+
+    }
+  }
+}
