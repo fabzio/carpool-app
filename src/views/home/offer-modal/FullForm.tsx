@@ -15,8 +15,8 @@ export default function FullForm() {
         Asientos reservados
         <input
           type="number"
-          name="freeSeats"
-          id="freeSeats"
+          name="bookedSeats"
+          id="bookedSeats"
           className="input input-bordered"
           min={0}
           max={user?.seats! - 1}

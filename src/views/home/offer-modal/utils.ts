@@ -82,6 +82,10 @@ export const getTravelData = (
   const direction: GenericTravel["direction"] = !!parseInt(
     data.get("direction") as string
   );
+  const bookedSeats = data.get("bookedSeats")
+    ? parseInt(data.get("bookedSeats") as string)
+    : 0;
+  const freeSeats = user?.seats! - bookedSeats;
   const fee: GenericTravel["fee"] = data.get("fee")
     ? parseFloat(data.get("fee") as string)
     : user?.fee!;
@@ -99,7 +103,7 @@ export const getTravelData = (
     travelType: "offer",
     name: user?.name!,
     seats: user?.seats!,
-    freeSeats: user?.seats,
+    freeSeats: freeSeats,
     preview: true,
   };
 };
