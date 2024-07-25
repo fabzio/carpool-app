@@ -7,4 +7,5 @@ type GenericTravel = {
   name: string;
   direction: boolean;
   travelDate: string;
+  preview?: boolean;
 };
