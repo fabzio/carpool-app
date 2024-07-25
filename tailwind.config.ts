@@ -2,7 +2,11 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      blur: {
+        xs: "2px",
+      },
+    },
   },
   plugins: [require("daisyui")],
   daisyui: {
