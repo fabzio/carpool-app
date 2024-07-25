@@ -12,6 +12,7 @@ export default defineConfig({
         "@services": path.resolve(process.cwd(), "src/services"),
         "@store": path.resolve(process.cwd(), "src/store"),
         "@hooks": path.resolve(process.cwd(), "src/hooks"),
+        "@constants": path.resolve(process.cwd(), "src/constants"),
         "@utils": path.resolve(process.cwd(), "src/utils"),
       },
     },
