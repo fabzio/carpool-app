@@ -17,7 +17,7 @@ export default function TravelModal({ visible, handleClose, children }: Props) {
 
   return (
     <dialog ref={modalRef} className="modal modal-bottom sm:modal-middle">
-      <div className="modal-box">
+      <div className="modal-box bg-opacity-95">
         {children}
         <form method="dialog">
           <button
