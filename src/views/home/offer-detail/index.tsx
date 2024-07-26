@@ -3,7 +3,7 @@ import QueryKeys from "@constants/queryKeys.constants";
 import { useQueryStore } from "@hooks";
 import DriverService from "@services/driver.service";
 import TravelService from "@services/travel.service";
-import { useQueries, useQuery } from "@tanstack/react-query";
+import { useQueries } from "@tanstack/react-query";
 import { capitalize } from "@utils/capitalize";
 import { formatCurrency } from "@utils/formatCurrency";
 import moment from "moment";

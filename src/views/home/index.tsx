@@ -24,8 +24,9 @@ export default function Home() {
     queryFn: TravelService.getTravelList,
   });
 
-  const { data: storedTravels, setQueryStore } =
-    useQueryStore<GenericTravel[]>("travels");
+  const { data: storedTravels, setQueryStore } = useQueryStore<GenericTravel[]>(
+    QueryKeys.TRAVELS
+  );
 
   const handleOpen = (type: "detail" | "new") => () => {
     switchBlur();
@@ -54,7 +55,7 @@ export default function Home() {
   if (isError) return <Error />;
   return (
     <div className="h-full">
-      <TravelList travels={travelListResponse?.data} />
+      <TravelList travels={travelListResponse} />
       <AddButton onClick={handleOpen("new")} />
       <TravelModal visible={visibleNew} handleClose={handleClose("new")}>
         {type === "driver" && <OfferModal handleClose={handleClose("new")} />}
