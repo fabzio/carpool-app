@@ -6,7 +6,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-export default function TravelModal({ visible, handleClose, children }: Props) {
+export default function NewTravelModal({ visible, handleClose, children }: Props) {
   const modalRef = useRef<HTMLDialogElement>(null);
 
   if (visible) {
@@ -17,7 +17,7 @@ export default function TravelModal({ visible, handleClose, children }: Props) {
 
   return (
     <dialog ref={modalRef} className="modal modal-bottom sm:modal-middle">
-      <div className="modal-box bg-opacity-95">
+      <div className="modal-box bg-opacity-90">
         {children}
         <form method="dialog">
           <button

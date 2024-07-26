@@ -2,7 +2,6 @@ import moment from "moment";
 import {
   getDefaultDirectionValue,
   getNextIntervalTime,
-  getNextMultipleOf10Minutes,
 } from "./utils";
 import { useSelector } from "@hooks";
 import { TravelDirection } from "@interfaces/enums/TravelDirection";
