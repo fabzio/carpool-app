@@ -1,10 +1,12 @@
-import { useSelector } from "@hooks";
-import { IconClock, IconUser, IconUserFilled } from "@tabler/icons-react";
+import { SeatsStatus } from "@components";
+import { SetQueryStoreAction, useQueryStore, useSelector } from "@hooks";
+import { IconClock } from "@tabler/icons-react";
 import { capitalize } from "@utils/capitalize";
 import { formatCurrency } from "@utils/formatCurrency";
 import moment from "moment";
 
 export default function TravelCard({
+  travelId,
   name,
   direction,
   fee,
@@ -15,19 +17,18 @@ export default function TravelCard({
   preview,
 }: GenericTravel) {
   const { theme } = useSelector((state) => state.theme);
+  const { setQueryStore } = useQueryStore<GenericTravel[]>("travels");
   const isLight = theme === "light";
   const isOffer = travelType === "offer";
-  const offOfferText = "Sale";
-  const landsOfferText = "Llega";
-  const offRequestText = "Quiere salir";
-  const landsRequestText = "Quiere llegar";
+
   return (
     <article
-      className={`card card-compact shadow-xl bg-gradient-to-b from-transparent  ${
+      className={`card card-compact shadow-xl bg-gradient-to-b from-transparent ${
         preview
           ? "blur-xs animate-pulse"
           : ` ${isLight ? "to-base-200" : "to-base-300"}`
       }`}
+      onClick={selectTravel(travelId, setQueryStore)}
     >
       <div className="card-body">
         <header className="flex flex-col">
@@ -66,16 +67,10 @@ export default function TravelCard({
             </span>
           </section>
           <section>
-            <div className="flex py-1" aria-label="seat availability">
-              {Array.from({ length: isOffer ? seats - freeSeats! : seats }).map(
-                (_, idx) => (
-                  <IconUserFilled key={idx} />
-                )
-              )}
-              {Array.from({ length: freeSeats! }).map((_, idx) => (
-                <IconUser key={idx} />
-              ))}
-            </div>
+            <SeatsStatus
+              maxSeats={seats}
+              reservedSeats={isOffer ? seats - freeSeats! : seats}
+            />
           </section>
           <section className="flex flex-col text-base-content text-opacity-70 items-end">
             <span className="">
@@ -97,3 +92,22 @@ export default function TravelCard({
     </article>
   );
 }
+
+const offOfferText = "Sale";
+const landsOfferText = "Llega";
+const offRequestText = "Quiere salir";
+const landsRequestText = "Quiere llegar";
+
+const selectTravel =
+  (
+    travelId: GenericTravel["travelId"],
+    setQueryStore: SetQueryStoreAction<GenericTravel[]>
+  ) =>
+  () => {
+    setQueryStore((current) => {
+      return current.map((travel) => ({
+        ...travel,
+        selected: travel.travelId === travelId,
+      }));
+    });
+  };
