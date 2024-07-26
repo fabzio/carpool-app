@@ -1,5 +1,7 @@
+import QueryKeys from "@constants/queryKeys.constants";
 import { TravelDirection } from "@interfaces/enums/TravelDirection";
-import { Driver } from "@interfaces/models/driver.interface";
+import type { Driver } from "@interfaces/models/driver.d.ts";
+
 import { ResponseAPI } from "@interfaces/responseAPI.interface";
 import moment from "moment";
 
@@ -42,7 +44,7 @@ export const getDefaultDirectionValue = () => {
 export const optimisticUpdate =
   (queryClient: any, handleClose: () => void) =>
   async (newtravel: GenericTravel) => {
-    await queryClient.cancelQueries({ queryKey: ["travels"] });
+    await queryClient.cancelQueries({ queryKey: [QueryKeys.TRAVELS] });
     const previousTravels = queryClient.getQueryData(["travels"]);
     await queryClient.setQueryData(["travels"], (old?: ResponseAPI) => {
       const newResponse = {

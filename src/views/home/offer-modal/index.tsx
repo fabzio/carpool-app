@@ -6,6 +6,7 @@ import DriverService from "@services/driver.service";
 import { getTravelData, optimisticUpdate } from "./utils";
 import SimpleForm from "./SimpleForm";
 import FullForm from "./FullForm";
+import QueryKeys from "@constants/queryKeys.constants";
 
 interface Props {
   handleClose: () => void;
@@ -28,7 +29,7 @@ export default function OfferModal({ handleClose }: Props) {
       }
     },
     onSettled: async () => {
-      await queryClient.invalidateQueries({ queryKey: ["travels"] });
+      await queryClient.invalidateQueries({ queryKey: [QueryKeys.TRAVELS] });
     },
   });
 

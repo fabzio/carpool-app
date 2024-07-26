@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Error, Loading } from "@components";
 import ZoneList from "./ZoneList";
 import ZoneService from "@services/zone.service";
+import QueryKeys from "@constants/queryKeys.constants";
 
 export default function ChooseZone() {
   const {
@@ -10,7 +11,7 @@ export default function ChooseZone() {
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["zones"],
+    queryKey: [QueryKeys.ZONES],
     queryFn: ZoneService.getZones,
   });
 
