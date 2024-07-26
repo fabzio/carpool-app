@@ -1,6 +1,6 @@
 import { SliceStore } from "@store/types";
 import UserStore from "./types";
-import { Driver } from "@interfaces/models/driver.interface";
+import type { Driver } from "@interfaces/models/driver.d.ts";
 
 const createUserSlice: SliceStore<UserStore> = (set, get) => ({
   type: "driver",

@@ -1,6 +1,6 @@
 import { UserState } from "@interfaces/enums/UserState";
 
-export interface User {
+interface User {
   id: string;
   name: string;
   lastname: string;

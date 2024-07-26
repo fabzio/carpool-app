@@ -1,4 +1,3 @@
-import { Zone } from "@interfaces/models/zone.interface";
 import ZoneItem from "./ZoneItem";
 
 interface Props {

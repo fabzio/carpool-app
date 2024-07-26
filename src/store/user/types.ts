@@ -1,4 +1,4 @@
-import { Driver } from "@interfaces/models/driver.interface";
+import type { Driver } from "@interfaces/models/driver.d.ts";
 
 interface UserStore {
   type: "passenger" | "driver";
