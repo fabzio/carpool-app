@@ -2,13 +2,14 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 import MainLayout from "./layout/MainLayout";
 import { LazyHome, LazySignUp } from "./views/lazy";
 import AuthProvider from "./contexts/AuthProvider";
+import Paths from "@constants/paths.constants";
 
 const router = createBrowserRouter([
   {
     element: <MainLayout simple />,
     children: [
       {
-        path: "/signup",
+        path: Paths.SING_UP,
         element: <LazySignUp />,
       },
     ],
@@ -22,18 +23,18 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Navigate to="/home" />,
+        element: <Navigate to={Paths.HOME} />,
       },
       {
-        path: "/home",
+        path: Paths.HOME,
         element: <LazyHome />,
       },
       {
-        path: "/history",
+        path: Paths.HISTORY,
         element: <div>History</div>,
       },
       {
-        path: "/profile",
+        path: Paths.PROFILE,
         element: <div>Profile</div>,
       },
     ],

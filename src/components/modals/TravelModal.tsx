@@ -3,9 +3,10 @@ import { useRef } from "react";
 interface Props {
   visible: boolean;
   handleClose: () => void;
+  children: React.ReactNode;
 }
 
-export default function TravelModal({ visible, handleClose }: Props) {
+export default function NewTravelModal({ visible, handleClose, children }: Props) {
   const modalRef = useRef<HTMLDialogElement>(null);
 
   if (visible) {
@@ -16,7 +17,8 @@ export default function TravelModal({ visible, handleClose }: Props) {
 
   return (
     <dialog ref={modalRef} className="modal modal-bottom sm:modal-middle">
-      <div className="modal-box">
+      <div className="modal-box bg-opacity-90">
+        {children}
         <form method="dialog">
           <button
             onClick={handleClose}

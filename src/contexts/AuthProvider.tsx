@@ -1,4 +1,5 @@
 import { Loading } from "@components";
+import QueryKeys from "@constants/queryKeys.constants";
 import AuthService from "@services/auth.service";
 import { useQuery } from "@tanstack/react-query";
 import { Navigate, Outlet } from "react-router-dom";
@@ -7,11 +8,11 @@ interface Props {
 }
 
 export default function AuthProvider({ children }: Props) {
-  const { data, isLoading } = useQuery({
-    queryKey: ["auth"],
+  const { data: succes, isLoading } = useQuery({
+    queryKey: [QueryKeys.AUTH],
     queryFn: AuthService.verify,
   });
   if (isLoading) return <Loading />;
-  if (!data?.success) return <Navigate to="/signup" />;
+  if (!succes) return <Navigate to="/signup" />;
   return children ? children : <Outlet />;
 }

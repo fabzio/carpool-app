@@ -8,6 +8,10 @@ import createUserSlice from "./user/user.store";
 
 const storageOptions = {
   name: "store",
+  partialize: (state: StoreType) => {
+    const { blur, ...rest } = state;
+    return rest;
+  },
 };
 const useStore = create<StoreType>()(
   devtools(

@@ -24,13 +24,14 @@ class AuthService {
     }
   }
 
-  public static async verify(): Promise<ResponseAPI> {
+  public static async verify(): Promise<boolean> {
     const token = getCookie("tkn");
     try {
       const res = await http.get("auth/verify", {
         Authorization: `Bearer ${token}`,
       });
-      return res;
+
+      return res.success;
     } catch (error) {
       throw new Error();
     }

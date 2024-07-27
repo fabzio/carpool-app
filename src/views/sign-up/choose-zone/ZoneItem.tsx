@@ -1,5 +1,4 @@
 import { useSelector } from "@hooks";
-import { Zone } from "@interfaces/models/zone.interface";
 
 interface Props {
   zone: Zone;

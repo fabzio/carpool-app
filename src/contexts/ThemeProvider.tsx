@@ -4,7 +4,7 @@ interface Props {
   children: React.ReactNode;
 }
 const ThemeProvider = ({ children }: Props) => {
-  const { switchTheme, themeChosen, theme } = useSelector(
+  const { switchTheme, themeChosen, theme, blur } = useSelector(
     (state) => state.theme
   );
 
@@ -17,7 +17,10 @@ const ThemeProvider = ({ children }: Props) => {
   }, [prefersDarkMode, switchTheme]);
 
   return (
-    <div data-theme={theme} className="min-h-svh w-full">
+    <div
+      data-theme={theme}
+      className={`min-h-svh w-full ${blur ? "blur-sm transition-all" : ""}`}
+    >
       {children}
     </div>
   );

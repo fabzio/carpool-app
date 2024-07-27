@@ -2,7 +2,11 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      blur: {
+        xs: "2px",
+      },
+    },
   },
   plugins: [require("daisyui")],
   daisyui: {
@@ -13,7 +17,7 @@ module.exports = {
           "primary-content": "#fff",
           secondary: "#D7EB3D",
           "secondary-content": "#202020",
-          accent: "#FF8484",
+          accent: "#A75050",
           "accent-content": "#0c0a00",
           neutral: "#848c9c",
           "neutral-content": "#ced0d6",

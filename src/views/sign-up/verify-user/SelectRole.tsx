@@ -20,7 +20,7 @@ export default function SelectRole({ userId, name }: Props) {
   };
   return (
     <div className=" flex flex-col items-center justify-center">
-      <h3 className="font-bold text-center text-2xl">
+      <h3 className="font-bold text-pretty text-center text-2xl">
         ¡Bienvenid@ a Carpool, {capitalize(name)}! 😁
       </h3>
       <h3 className="text-center text-balance">¿Cómo usarás la app?</h3>
@@ -28,13 +28,13 @@ export default function SelectRole({ userId, name }: Props) {
         <button className="flex-grow " onClick={handleContinue("driver")}>
           <div className="card h-full w-full flex flex-col items-center gap-2  shadow-xl">
             <IconSteeringWheel stroke={2} size={64} opacity={0.7} />
-            Conductor
+            Conductor(a)
           </div>
         </button>
         <button className="flex-grow" onClick={handleContinue("passenger")}>
           <div className="card h-full w-full flex flex-col items-center gap-2 shadow-xl">
             <IconUser stroke={2} size={64} opacity={0.7} />
-            <span>Pasajero</span>
+            <span>Pasajero/a</span>
           </div>
         </button>
       </div>

@@ -4,6 +4,7 @@ import UserNotAllowed from "./UserNotAllowed";
 import UserService from "@services/user.service";
 import { useEffect, useState } from "react";
 import { useSelector } from "@hooks";
+import QueryKeys from "@constants/queryKeys.constants";
 
 type SignUpRequest = {
   phone: string;
@@ -13,8 +14,8 @@ type SignUpRequest = {
 export default function VerifyUser() {
   const [userData, setUserData] = useState<SignUpRequest | null>(null);
   const { data, isLoading, isFetched, refetch } = useQuery({
-    queryKey: ["pucp-data", userData],
-    queryFn: ({ queryKey }) => UserService.signUp(queryKey[1] as SignUpRequest),
+    queryKey: [QueryKeys.PUCP_DATA, userData],
+    queryFn: () => UserService.signUp(userData),
     enabled: false,
   });
   const { createUserData } = useSelector((state) => state.signUp);
@@ -39,8 +40,8 @@ export default function VerifyUser() {
     if (userData) refetch();
   }, [userData, refetch]);
 
-  const userId = data?.data?.userId;
-  const name = data?.data?.name;
+  const userId = data?.userId;
+  const name = data?.name;
   const success = data?.success;
   const message = data?.message;
   return (
@@ -87,9 +88,9 @@ export default function VerifyUser() {
       )}
       <section className="h-full grid">
         {isLoading && (
-          <p>Ingresando al campus virtual, esto puede tardar un momento....</p>
+          <p>Accediendo al campus virtual, esto puede tardar un momento....</p>
         )}
-        {isFetched && success && <SelectRole userId={userId} name={name} />}
+        {isFetched && success && <SelectRole userId={userId!} name={name!} />}
         {isFetched && !success && <UserNotAllowed message={message!} />}
       </section>
     </div>

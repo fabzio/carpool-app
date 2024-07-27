@@ -1,6 +1,6 @@
-import { User } from "./user.interface";
+import { User } from "./user";
 
-export interface Driver extends User {
+interface Driver extends User {
   dni: string;
   plate: string;
   vehicleDescription: string;

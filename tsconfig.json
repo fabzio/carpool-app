@@ -27,6 +27,7 @@
       "@services/*": ["./services/*"],
       "@store/*": ["./store/*"],
       "@hooks": ["./hooks"],
+      "@constants/*": ["./constants/*"],
       "@utils/*": ["./utils/*"]
     }
   },
