@@ -2,7 +2,7 @@ import moment from "moment";
 import {
   getDefaultDirectionValue,
   getNextIntervalTime,
-} from "./utils";
+} from "../utils";
 import { TravelDirection } from "@interfaces/enums/TravelDirection";
 
 export default function SimpleForm() {

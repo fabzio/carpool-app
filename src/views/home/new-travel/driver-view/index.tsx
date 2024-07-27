@@ -1,31 +1,34 @@
 import styles from "./index.module.css";
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useSelector } from "@hooks";
+import { useQueryStore, useSelector } from "@hooks";
 import DriverService from "@services/driver.service";
-import { getTravelData, optimisticUpdate } from "./utils";
+
 import SimpleForm from "./SimpleForm";
 import FullForm from "./FullForm";
 import QueryKeys from "@constants/queryKeys.constants";
+import { getTravelData, optimisticUpdate } from "../utils";
 
 interface Props {
   handleClose: () => void;
 }
 
-export default function OfferModal({ handleClose }: Props) {
+export default function DriverView({ handleClose }: Props) {
   const { user } = useSelector((state) => state.user);
   const [simpleForm, setSimpleForm] = useState(true);
-
+  const { data, setQueryStore } = useQueryStore<GenericTravel[]>(
+    QueryKeys.TRAVELS
+  );
   const queryClient = useQueryClient();
   const { mutate, isPending } = useMutation({
     mutationFn: (travelData) => DriverService.newOffer(travelData),
-    onMutate: optimisticUpdate(queryClient, handleClose),
+    onMutate: optimisticUpdate(queryClient, handleClose, data, setQueryStore),
     onSuccess: () => {
       setSimpleForm(true);
     },
     onError: (_, __, context) => {
       if (context?.previousTravels) {
-        queryClient.setQueryData(["travels"], context.previousTravels);
+        setQueryStore(() => context.previousTravels!);
       }
     },
     onSettled: async () => {
