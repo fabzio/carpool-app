@@ -8,11 +8,11 @@ interface Props {
 }
 
 export default function AuthProvider({ children }: Props) {
-  const { data, isLoading } = useQuery({
+  const { data: succes, isLoading } = useQuery({
     queryKey: [QueryKeys.AUTH],
     queryFn: AuthService.verify,
   });
   if (isLoading) return <Loading />;
-  if (!data?.success) return <Navigate to="/signup" />;
+  if (!succes) return <Navigate to="/signup" />;
   return children ? children : <Outlet />;
 }

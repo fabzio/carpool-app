@@ -15,13 +15,14 @@ class DriverService {
     }
   }
 
-  public static async newOffer(data: any): Promise<any> {
+  public static async newOffer(data: any): Promise<TravelOffer["id"]> {
     const token = getCookie("tkn");
     try {
       const res = await http.post("driver/new-offer", data, {
         Authorization: `Bearer ${token}`,
       });
-      return res;
+      if (!res.success) throw new Error(res.message);
+      return res.data as TravelOffer["id"];
     } catch (error) {
       throw new Error();
     }
