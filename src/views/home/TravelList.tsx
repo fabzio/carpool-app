@@ -7,7 +7,7 @@ interface Props {
 export default function TravelList({ travels = [] }: Props) {
   return (
     <ul className="grid grid-cols-2 gap-2 p-2">
-      {travels.map((travel: GenericTravel) => (
+      {travels.map((travel) => (
         <li className="col-span-1" key={travel.travelId}>
           <TravelCard {...travel} />
         </li>
