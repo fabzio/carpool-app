@@ -3,7 +3,7 @@ import { AddButton, Error, Loading, TravelModal } from "@components";
 import { useEffect, useState } from "react";
 import TravelList from "./TravelList";
 import { useQueryStore, useSelector } from "@hooks";
-import OfferModal from "./offer-modal";
+import OfferModal from "./new-offer";
 import { useQuery } from "@tanstack/react-query";
 import TravelService from "@services/travel.service";
 import OfferDetail from "./offer-detail";
