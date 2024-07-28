@@ -68,8 +68,8 @@ export default function TravelCard({
           </section>
           <section>
             <SeatsStatus
-              maxSeats={seats}
-              reservedSeats={isOffer ? seats - freeSeats! : seats}
+              maxSeats={seats!}
+              reservedSeats={isOffer ? seats! - freeSeats! : seats!}
             />
           </section>
           <section className="flex flex-col text-base-content text-opacity-70 items-end">

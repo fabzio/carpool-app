@@ -1,10 +1,11 @@
 import moment from "moment";
-import { getDefaultDirectionValue, getNextIntervalTime } from "../utils";
+import { getDefaultDirectionValue, getNextIntervalTime } from "./utils";
 import { useSelector } from "@hooks";
 import { TravelDirection } from "@interfaces/enums/TravelDirection";
+import type{ Driver } from "@interfaces/models/driver.d.ts";
 
-export default function FullForm() {
-  const { user } = useSelector((state) => state.user);
+export default function DriverFullForm() {
+  const { user } = useSelector((state) => state.user) as {user: Partial<Driver>};
   return (
     <>
       <label className="col-span-2 flex flex-col">

@@ -1,8 +1,5 @@
 import moment from "moment";
-import {
-  getDefaultDirectionValue,
-  getNextIntervalTime,
-} from "../utils";
+import { getDefaultDirectionValue, getNextIntervalTime } from "./utils";
 import { TravelDirection } from "@interfaces/enums/TravelDirection";
 
 export default function SimpleForm() {
@@ -14,8 +11,8 @@ export default function SimpleForm() {
     <>
       <label htmlFor="" className="col-span-2">
         <select
-          name="day"
-          id="day"
+          name="travelDay"
+          id="travelDay"
           className="select select-bordered w-full max-w-xs"
           defaultValue={isAfter10PM ? tomorrow : today}
           required
@@ -44,6 +41,7 @@ export default function SimpleForm() {
             className="radio radio-primary"
             value={TravelDirection.INBOUND}
             defaultChecked={
+              isAfter10PM ||
               getDefaultDirectionValue() === TravelDirection.INBOUND
             }
             required
@@ -59,6 +57,7 @@ export default function SimpleForm() {
             className="radio radio-primary"
             value={TravelDirection.OUTBOUND}
             defaultChecked={
+              !isAfter10PM &&
               getDefaultDirectionValue() === TravelDirection.OUTBOUND
             }
             required
