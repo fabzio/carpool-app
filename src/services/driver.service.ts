@@ -2,6 +2,12 @@ import type { Driver } from "@interfaces/models/driver.d.ts";
 import { http } from "@utils/http";
 import { getCookie } from "react-use-cookie";
 
+export type InsertTravelOffer = {
+  travelDate: TravelOffer["travelDate"];
+  direction: TravelOffer["direction"];
+  fee: Driver["fee"];
+  freeSeats: TravelOffer["freeSeats"];
+};
 class DriverService {
   public static async getDriverByCode(code: Driver["code"]): Promise<Driver> {
     const token = getCookie("tkn");
@@ -15,7 +21,9 @@ class DriverService {
     }
   }
 
-  public static async newOffer(data: any): Promise<TravelOffer["id"]> {
+  public static async newOffer(
+    data: InsertTravelOffer
+  ): Promise<TravelOffer["id"]> {
     const token = getCookie("tkn");
     try {
       const res = await http.post("driver/new-offer", data, {
