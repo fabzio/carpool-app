@@ -40,6 +40,21 @@ class PassengerService {
       throw new Error();
     }
   }
+
+  public static async joinRequest(
+    travelId: Travel["id"]
+  ): Promise<TravelRequest["id"]> {
+    const token = getCookie("tkn");
+    try {
+      const res = await http.post("passenger/join-request", { travelId }, {
+        Authorization: `Bearer ${token}`,
+      });
+      if (!res.success) throw new Error(res.message);
+      return res.data as TravelRequest["id"];
+    } catch (error) {
+      throw new Error();
+    }
+  }
 }
 
 export default PassengerService;
