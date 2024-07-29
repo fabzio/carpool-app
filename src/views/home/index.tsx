@@ -69,7 +69,9 @@ export default function Home() {
         visible={visibleOfferDetail}
         handleClose={handleClose("offerDetail")}
       >
-        {visibleOfferDetail && <OfferDetail />}
+        {visibleOfferDetail && (
+          <OfferDetail handleClose={handleClose("offerDetail")} />
+        )}
       </TravelModal>
       <TravelModal
         visible={visibleRequestDetail}
