@@ -69,13 +69,15 @@ export default function Home() {
         visible={visibleOfferDetail}
         handleClose={handleClose("offerDetail")}
       >
-        <OfferDetail />
+        {visibleOfferDetail && <OfferDetail />}
       </TravelModal>
       <TravelModal
         visible={visibleRequestDetail}
         handleClose={handleClose("requestDetail")}
       >
-        <RequestDetail />
+        {visibleRequestDetail && (
+          <RequestDetail handleClose={handleClose("requestDetail")} />
+        )}
       </TravelModal>
     </div>
   );

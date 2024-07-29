@@ -3,12 +3,15 @@ import QueryKeys from "@constants/queryKeys.constants";
 import { useQueryStore } from "@hooks";
 import PassengerService from "@services/passenger.service";
 import TravelService from "@services/travel.service";
-import { useQueries } from "@tanstack/react-query";
+import { useMutation, useQueries, useQueryClient } from "@tanstack/react-query";
 import { capitalize } from "@utils/capitalize";
 import { formatCurrency } from "@utils/formatCurrency";
 import moment from "moment";
 
-export default function RequestPassengerView() {
+interface Props {
+  handleClose: () => void;
+}
+export default function RequestPassengerView({ handleClose }: Props) {
   const { data: storedTravels } = useQueryStore<GenericTravel[]>(
     QueryKeys.TRAVELS
   );
@@ -29,6 +32,37 @@ export default function RequestPassengerView() {
       },
     ],
   });
+  const queryClient = useQueryClient();
+  const { data, setQueryStore } = useQueryStore<GenericTravel[]>(
+    QueryKeys.TRAVELS
+  );
+  const { mutate } = useMutation({
+    mutationFn: (travelId: string) => PassengerService.joinRequest(travelId!),
+    onMutate: () => {
+      const previus = data;
+      setQueryStore((curr) =>
+        curr?.map((travel) => {
+          if (travel.travelId === travelId) {
+            return { ...travel, seats: travel.seats! + 1 };
+          }
+          return travel;
+        })
+      );
+      handleClose();
+      return { previus };
+    },
+    onSuccess: () => {
+      queryClient.cancelQueries({
+        queryKey: [QueryKeys.TRAVELS, travelId],
+      });
+    },
+    onError: (_, __, context) => {
+      setQueryStore(() => context?.previus!);
+    },
+  });
+  const handleJoinRequest = () => {
+    mutate(travelSelected?.travelId!);
+  };
   const totalPassengers = travelSelected?.seats!;
   const otherPassengers = travelPassengers?.filter(
     (passenger) => passenger.name != passengerDetail?.name
@@ -95,7 +129,12 @@ export default function RequestPassengerView() {
           )}
         </section>
         <section className="flex justify-end">
-          <button className="btn btn-primary animate-pulse">Unirme</button>
+          <button
+            className="btn btn-primary animate-pulse"
+            onClick={handleJoinRequest}
+          >
+            Unirme
+          </button>
         </section>
       </main>
     </article>
