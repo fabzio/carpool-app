@@ -2,13 +2,18 @@ import { SeatsStatus } from "@components";
 import QueryKeys from "@constants/queryKeys.constants";
 import { useQueryStore } from "@hooks";
 import DriverService from "@services/driver.service";
+import PassengerService from "@services/passenger.service";
 import TravelService from "@services/travel.service";
-import { useQueries } from "@tanstack/react-query";
+import { useMutation, useQueries, useQueryClient } from "@tanstack/react-query";
 import { capitalize } from "@utils/capitalize";
 import { formatCurrency } from "@utils/formatCurrency";
 import moment from "moment";
 
-export default function PassengerView() {
+interface Props {
+  handleClose: () => void;
+}
+
+export default function PassengerView({ handleClose }: Props) {
   const { data: storedTravels } = useQueryStore<GenericTravel[]>(
     QueryKeys.TRAVELS
   );
@@ -29,6 +34,37 @@ export default function PassengerView() {
       },
     ],
   });
+  const queryClient = useQueryClient();
+  const { data, setQueryStore } = useQueryStore<GenericTravel[]>(
+    QueryKeys.TRAVELS
+  );
+  const { mutate } = useMutation({
+    mutationFn: (travelId: string) => PassengerService.acceptOffer(travelId),
+    onMutate: () => {
+      const previousTravels = data;
+      setQueryStore((current) => {
+        return current.map((item) => {
+          if (item.travelId === travelId) {
+            return { ...item, freeSeats: item.freeSeats! - 1 };
+          }
+          return item;
+        });
+      });
+      handleClose();
+      return { previousTravels };
+    },
+    onSuccess: () => {
+      queryClient.cancelQueries({ queryKey: [QueryKeys.TRAVELS] });
+    },
+    onError: (_, __, context) => {
+      setQueryStore(() => context?.previousTravels!);
+    },
+  });
+
+  const handleAcceptOffer = () => {
+    mutate(travelId!);
+  };
+
   const totalPassengers = driverDetail?.seats! - travelSelected?.freeSeats!;
   const unkwonPassengers = totalPassengers - travelPassengers?.length!;
 
@@ -98,6 +134,7 @@ export default function PassengerView() {
           <button
             className="btn btn-primary animate-pulse"
             disabled={travelSelected?.freeSeats === 0}
+            onClick={handleAcceptOffer}
           >
             Vamos!
           </button>

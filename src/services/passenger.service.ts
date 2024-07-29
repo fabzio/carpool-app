@@ -46,11 +46,34 @@ class PassengerService {
   ): Promise<TravelRequest["id"]> {
     const token = getCookie("tkn");
     try {
-      const res = await http.post("passenger/join-request", { travelId }, {
-        Authorization: `Bearer ${token}`,
-      });
+      const res = await http.post(
+        "passenger/join-request",
+        { travelId },
+        {
+          Authorization: `Bearer ${token}`,
+        }
+      );
       if (!res.success) throw new Error(res.message);
       return res.data as TravelRequest["id"];
+    } catch (error) {
+      throw new Error();
+    }
+  }
+
+  public static async acceptOffer(
+    travelId: TravelOffer["id"]
+  ): Promise<Travel["id"]> {
+    const token = getCookie("tkn");
+    try {
+      const res = await http.post(
+        "passenger/accept-offer",
+        { travelId },
+        {
+          Authorization: `Bearer ${token}`,
+        }
+      );
+      if (!res.success) throw new Error(res.message);
+      return res.data as Travel["id"];
     } catch (error) {
       throw new Error();
     }
