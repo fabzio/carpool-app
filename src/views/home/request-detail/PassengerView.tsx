@@ -52,7 +52,7 @@ export default function RequestPassengerView({ handleClose }: Props) {
       return { previus };
     },
     onSuccess: () => {
-      queryClient.cancelQueries({
+      queryClient.invalidateQueries({
         queryKey: [QueryKeys.TRAVELS, travelId],
       });
     },

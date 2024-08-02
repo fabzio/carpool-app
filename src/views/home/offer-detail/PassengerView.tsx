@@ -54,7 +54,7 @@ export default function PassengerView({ handleClose }: Props) {
       return { previousTravels };
     },
     onSuccess: () => {
-      queryClient.cancelQueries({ queryKey: [QueryKeys.TRAVELS] });
+      queryClient.invalidateQueries({ queryKey: [QueryKeys.TRAVELS] });
     },
     onError: (_, __, context) => {
       setQueryStore(() => context?.previousTravels!);

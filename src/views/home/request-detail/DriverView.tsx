@@ -1,14 +1,21 @@
 import { SeatsStatus } from "@components";
 import QueryKeys from "@constants/queryKeys.constants";
-import { useQueryStore } from "@hooks";
+import { useQueryStore, useSelector } from "@hooks";
+import type { Driver } from "@interfaces/models/driver.d.ts";
+import DriverService from "@services/driver.service";
 import PassengerService from "@services/passenger.service";
 import TravelService from "@services/travel.service";
-import { useQueries } from "@tanstack/react-query";
+import { useMutation, useQueries, useQueryClient } from "@tanstack/react-query";
 import { capitalize } from "@utils/capitalize";
 import { formatCurrency } from "@utils/formatCurrency";
 import moment from "moment";
 
-export default function RequestDriverView() {
+interface Props {
+  handleClose: () => void;
+}
+
+export default function RequestDriverView({ handleClose }: Props) {
+  const { user } = useSelector((state) => state.user);
   const { data: storedTravels } = useQueryStore<GenericTravel[]>(
     QueryKeys.TRAVELS
   );
@@ -29,6 +36,37 @@ export default function RequestDriverView() {
       },
     ],
   });
+  const queryClient = useQueryClient();
+  const { data, setQueryStore } = useQueryStore<GenericTravel[]>(
+    QueryKeys.TRAVELS
+  );
+  const { mutate } = useMutation({
+    mutationFn: (travelId: string) =>
+      DriverService.takeTravelRequest({
+        customFee: (user as Driver).fee,
+        travelId,
+      }),
+    onMutate: () => {
+      const previus = data;
+      setQueryStore((curr) =>
+        curr?.filter((travel) => travel.travelId !== travelId)
+      );
+      return { previus };
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QueryKeys.TRAVELS],
+      });
+
+      handleClose();
+    },
+    onError: (_, __, context) => {
+      setQueryStore(() => context?.previus!);
+    },
+  });
+  const handleTakeRequest = () => {
+    mutate(travelSelected?.travelId!);
+  };
   const totalPassengers = travelSelected?.seats!;
   const otherPassengers = travelPassengers?.filter(
     (passenger) => passenger.name != passengerDetail?.name
@@ -95,7 +133,12 @@ export default function RequestDriverView() {
           )}
         </section>
         <section className="flex justify-end">
-          <button className="btn btn-primary animate-pulse">Tomar viaje</button>
+          <button
+            className="btn btn-primary animate-pulse"
+            onClick={handleTakeRequest}
+          >
+            Tomar viaje
+          </button>
         </section>
       </main>
     </article>
