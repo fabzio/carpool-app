@@ -11,7 +11,7 @@ export default function RequestDetail({ handleClose }: Props) {
   return (
     <div>
       {type === "driver" ? (
-        <DriverView />
+        <DriverView handleClose={handleClose} />
       ) : (
         <PassengerView handleClose={handleClose} />
       )}

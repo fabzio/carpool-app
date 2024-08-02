@@ -35,6 +35,21 @@ class DriverService {
       throw new Error();
     }
   }
+
+  public static async takeTravelRequest(data: {
+    travelId: TravelOffer["id"];
+    customFee: Driver["fee"];
+  }): Promise<void> {
+    const token = getCookie("tkn");
+    try {
+      const res = await http.post(`driver/take-request`, data, {
+        Authorization: `Bearer ${token}`,
+      });
+      if (!res.success) throw new Error(res.message);
+    } catch (error) {
+      throw new Error();
+    }
+  }
 }
 
 export default DriverService;

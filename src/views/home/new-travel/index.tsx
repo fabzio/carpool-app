@@ -37,7 +37,7 @@ export default function NewTravel({ handleClose }: Props) {
         ? DriverService.newOffer(travelData as InsertTravelOffer)
         : PassengerService.newRequest(travelData as InsertTravelRequest),
     onMutate: async (travelData: GenericTravel) => {
-      await queryClient.cancelQueries({ queryKey: [QueryKeys.TRAVELS] });
+      await queryClient.invalidateQueries({ queryKey: [QueryKeys.TRAVELS] });
       const context = optimisticUpdate(data, setQueryStore)(travelData);
       console.log("close");
       handleClose();
