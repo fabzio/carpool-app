@@ -1,4 +1,5 @@
 import type { Driver } from "@interfaces/models/driver.d.ts";
+import { TravelOffer } from "@interfaces/models/travel";
 import { http } from "@utils/http";
 import { getCookie } from "react-use-cookie";
 
