@@ -5,6 +5,7 @@ import createThemeSlice from "./theme/theme.store";
 import { StoreType } from "./types";
 import createSignUpSlice from "./signup/signup.store";
 import createUserSlice from "./user/user.store";
+import createTravelSlice from "./travel/travel.store";
 
 const storageOptions = {
   name: "store",
@@ -20,6 +21,7 @@ const useStore = create<StoreType>()(
         ...createThemeSlice(...a),
         ...createSignUpSlice(...a),
         ...createUserSlice(...a),
+        ...createTravelSlice(...a),
       }),
       storageOptions
     )
