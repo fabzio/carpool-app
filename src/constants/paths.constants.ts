@@ -1,9 +1,9 @@
 const Paths = {
   SING_UP: "/signup",
-  HOME: "/home",
-  HISTORY: "/history",
-  HISTORY_DETAIL: "/history/detail",
-  PROFILE: "/profile",
+  HOME: "/pool",
+  HISTORY: "/historial",
+  HISTORY_DETAIL: "/historial/detalle",
+  PROFILE: "/perfil",
   LOGIN: "/login",
 };
 
