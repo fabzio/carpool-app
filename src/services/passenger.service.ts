@@ -97,6 +97,37 @@ class PassengerService {
       throw new Error();
     }
   }
+
+  public static async modifyRequest(data: {
+    travelId: TravelRequest["id"];
+    travelState: Travel["state"];
+  }): Promise<void> {
+    const token = getCookie("tkn");
+    try {
+      const res = await http.patch(`passenger/modify-request`, data, {
+        Authorization: `Bearer ${token}`,
+      });
+      if (!res.success) throw new Error(res.message);
+    } catch (error) {
+      throw new Error();
+    }
+  }
+
+  public static async modifyJoinRequest(data: {
+    travelId: TravelRequest["id"];
+    joinState: boolean;
+    passengerCode: Passenger["code"];
+  }): Promise<void> {
+    const token = getCookie("tkn");
+    try {
+      const res = await http.patch(`passenger/modify-join`, data, {
+        Authorization: `Bearer ${token}`,
+      });
+      if (!res.success) throw new Error(res.message);
+    } catch (error) {
+      throw new Error();
+    }
+  }
 }
 
 export default PassengerService;
