@@ -1,16 +1,13 @@
+import { useQueries } from "@tanstack/react-query";
+import moment from "moment";
+import { IconBrandWhatsapp } from "@tabler/icons-react";
 import { TravelRequest } from "@interfaces/models/travel";
-
 import { SeatsStatus } from "@components";
 import QueryKeys from "@constants/queryKeys.constants";
-import { useQueryStore } from "@hooks";
 import PassengerService from "@services/passenger.service";
 import TravelService from "@services/travel.service";
-import { useMutation, useQueries, useQueryClient } from "@tanstack/react-query";
 import { capitalize } from "@utils/capitalize";
-import { formatCurrency } from "@utils/formatCurrency";
-import moment from "moment";
 import PassengerActions from "./PassengerActions";
-import { IconBrandWhatsapp } from "@tabler/icons-react";
 
 interface Props {
   request: Partial<TravelRequest>;
