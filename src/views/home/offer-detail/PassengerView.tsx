@@ -28,7 +28,7 @@ export default function PassengerView({ handleClose }: Props) {
         enabled: !!travelSelected,
       },
       {
-        queryKey: [QueryKeys.TRAVEL_DETAIL, travelId],
+        queryKey: [QueryKeys.TRAVEL_PASSENGERS, travelId],
         queryFn: () => TravelService.getTravelPassengers(travelId!),
         enabled: !!travelId,
       },
