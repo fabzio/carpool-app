@@ -3,6 +3,7 @@ import { TravelState } from "@interfaces/enums/TravelState";
 export interface Travel {
   id: string;
   name: string;
+  ownerCode: string;
   type?: "offer" | "request";
   travelDate: string;
   direction: boolean;
