@@ -1,5 +1,6 @@
 import type { Driver } from "@interfaces/models/driver.d.ts";
 import { Travel, TravelOffer } from "@interfaces/models/travel";
+import { PaginatedResponse } from "@interfaces/paginatedResponse.interface";
 import { http } from "@utils/http";
 import { getCookie } from "react-use-cookie";
 
@@ -70,7 +71,7 @@ class DriverService {
     pageParam = 1,
   }: {
     pageParam: number;
-  }): Promise<Travel[]> {
+  }): Promise<PaginatedResponse<Travel>> {
     const token = getCookie("tkn");
     try {
       const res = await http.get(`driver/history?page=${pageParam}`, {

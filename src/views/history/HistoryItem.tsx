@@ -1,14 +1,18 @@
+import Paths from "@constants/paths.constants";
+import { useSelector } from "@hooks";
 import { TravelDirection } from "@interfaces/enums/TravelDirection";
-import { TravelState } from "@interfaces/enums/TravelState";
 import { Travel } from "@interfaces/models/travel";
 import { capitalize } from "@utils/capitalize";
 
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
+import { mapDirectionBadge, mapTravelStyle, mapTravelText } from "./utils";
 
 interface Props extends Travel {}
 
 export default function HistoryItem({
+  id,
+  ownerCode,
   name,
   direction,
   state,
@@ -16,16 +20,25 @@ export default function HistoryItem({
   type,
 }: Props) {
   const navigate = useNavigate();
+  const { setSelectedTravel } = useSelector((state) => state.travel);
   const handleClick = () => {
-    
-  }
+    setSelectedTravel({
+      id,
+      ownerCode,
+      direction,
+      state,
+      travelDate,
+      type,
+    });
+    navigate(Paths.HISTORY_DETAIL);
+  };
 
   return (
     <>
       <article
         className="card card-compact shadow-xl cursor-pointer"
         role="listitem"
-        onClick={() => navigate("detail")}
+        onClick={handleClick}
       >
         <div className="card-body">
           <header className="flex flex-col">
@@ -70,20 +83,3 @@ export default function HistoryItem({
     </>
   );
 }
-
-const mapDirectionBadge = {
-  [TravelDirection.INBOUND]: "badge-primary",
-  [TravelDirection.OUTBOUND]: "badge-secondary",
-};
-
-const mapTravelStyle = {
-  [TravelState.CREATED]: "text-accent",
-  [TravelState.CANCELLED]: "text-error",
-  [TravelState.OFF]: "text-success",
-};
-
-const mapTravelText = {
-  [TravelState.CREATED]: "Por salir",
-  [TravelState.CANCELLED]: "Cancelado",
-  [TravelState.OFF]: "Finalizado",
-};

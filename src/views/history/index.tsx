@@ -3,9 +3,12 @@ import { Error, Loading } from "@components";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import HistoryList from "./HistoryList";
 import PassengerService from "@services/passenger.service";
-import { useScrollPosition } from "@hooks";
+import { useScrollPosition, useSelector } from "@hooks";
+import QueryKeys from "@constants/queryKeys.constants";
+import DriverService from "@services/driver.service";
 
 export default function History() {
+  const { type } = useSelector((state) => state.user);
   const {
     data,
     isLoading,
@@ -13,9 +16,13 @@ export default function History() {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
+    isPending,
   } = useInfiniteQuery({
-    queryKey: ["travelHistory"],
-    queryFn: PassengerService.travelHistory,
+    queryKey: [QueryKeys.MY_TRAVELS],
+    queryFn:
+      type === "passenger"
+        ? PassengerService.travelHistory
+        : DriverService.travelHistory,
     initialPageParam: 1,
     getNextPageParam: (lastPage) =>
       lastPage.hasNext ? lastPage.page + 1 : undefined,
@@ -24,17 +31,23 @@ export default function History() {
 
   const { scrollPosition, isFull } = useScrollPosition();
 
-  // Cargar más datos cuando el usuario se acerque al final de la página
   useEffect(() => {
-    console.log(isFull);
     if (
       (scrollPosition > 0.9 || isFull) &&
       hasNextPage &&
-      !isFetchingNextPage
+      !isFetchingNextPage &&
+      !isPending
     ) {
       fetchNextPage();
     }
-  }, [scrollPosition, fetchNextPage, hasNextPage]);
+  }, [
+    scrollPosition,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isFull,
+    isPending,
+  ]);
 
   const pagintedTravels = data?.pages.flatMap((page) => page.data);
 
