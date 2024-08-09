@@ -1,6 +1,11 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import MainLayout from "./layout/MainLayout";
-import { LazyHome, LazySignUp } from "./views/lazy";
+import {
+  LazyHistory,
+  LazyHistoryDetail,
+  LazyHome,
+  LazySignUp,
+} from "./views/lazy";
 import AuthProvider from "./contexts/AuthProvider";
 import Paths from "@constants/paths.constants";
 
@@ -31,7 +36,12 @@ const router = createBrowserRouter([
       },
       {
         path: Paths.HISTORY,
-        element: <div>History</div>,
+        element: <LazyHistory />,
+      },
+
+      {
+        path: Paths.HISTORY_DETAIL,
+        element: <LazyHistoryDetail />,
       },
       {
         path: Paths.PROFILE,

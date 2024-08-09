@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 const useScrollPosition = () => {
-  const [scrollPosition, setScrollPosition] = useState(1);
-
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const [isFull, setIsFull] = useState(false);
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
@@ -13,21 +13,21 @@ const useScrollPosition = () => {
         const scrollFraction = scrollTop / (documentHeight - windowHeight);
         setScrollPosition(scrollFraction);
       } else {
-        setScrollPosition(0); // Si no hay scroll disponible, establecer en 1
+        setIsFull(true);
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     // Llamar handleScroll una vez para establecer la posición inicial
     handleScroll();
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
-  return scrollPosition;
+  return { scrollPosition, isFull };
 };
 
 export default useScrollPosition;

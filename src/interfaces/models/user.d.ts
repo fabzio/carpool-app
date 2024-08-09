@@ -6,6 +6,7 @@ interface User {
   lastname: string;
   faculty: string;
   code: string;
+  phone: string;
   degree?: string;
   password: string;
   email: string;

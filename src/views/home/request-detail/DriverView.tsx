@@ -30,7 +30,7 @@ export default function RequestDriverView({ handleClose }: Props) {
         enabled: !!travelSelected,
       },
       {
-        queryKey: [QueryKeys.TRAVEL_DETAIL, travelId],
+        queryKey: [QueryKeys.TRAVEL_PASSENGERS, travelId],
         queryFn: () => TravelService.getTravelPassengers(travelId!),
         enabled: !!travelId,
       },
@@ -78,7 +78,7 @@ export default function RequestDriverView({ handleClose }: Props) {
       <header className="flex flex-col py-2">
         <div className="flex justify-between">
           <h2 className="font-bold text-3xl">
-            {capitalize(passengerDetail?.name.split(" ")[0]) + " 🙋"}
+            {capitalize(passengerDetail?.name.split(" ")[0]) + " 🤚"}
           </h2>
           <span className="text-2xl font-bold">
             {formatCurrency(travelSelected?.fee)}{" "}

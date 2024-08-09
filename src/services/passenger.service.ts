@@ -1,4 +1,6 @@
 import type { Passenger } from "@interfaces/models/passenger.d.ts";
+import { Travel, TravelOffer, TravelRequest } from "@interfaces/models/travel";
+import { PaginatedResponse } from "@interfaces/paginatedResponse.interface";
 import { http } from "@utils/http";
 import { getCookie } from "react-use-cookie";
 
@@ -16,7 +18,7 @@ class PassengerService {
   ): Promise<Passenger> {
     const token = getCookie("tkn");
     try {
-      const res = await http.get(`passenger/${code}`, {
+      const res = await http.get(`passenger/user/${code}`, {
         Authorization: `Bearer ${token}`,
       });
       if (!res.success) throw new Error(res.message);
@@ -74,6 +76,54 @@ class PassengerService {
       );
       if (!res.success) throw new Error(res.message);
       return res.data as Travel["id"];
+    } catch (error) {
+      throw new Error();
+    }
+  }
+
+  public static async travelHistory({
+    pageParam = 1,
+  }: {
+    pageParam?: number;
+  }): Promise<PaginatedResponse<Travel>> {
+    const token = getCookie("tkn");
+    try {
+      const res = await http.get(`passenger/history?page=${pageParam}`, {
+        Authorization: `Bearer ${token}`,
+      });
+      if (!res.success) throw new Error(res.message);
+      return res.data as PaginatedResponse<Travel>;
+    } catch (error) {
+      throw new Error();
+    }
+  }
+
+  public static async modifyRequest(data: {
+    travelId: TravelRequest["id"];
+    travelState: Travel["state"];
+  }): Promise<void> {
+    const token = getCookie("tkn");
+    try {
+      const res = await http.patch(`passenger/modify-request`, data, {
+        Authorization: `Bearer ${token}`,
+      });
+      if (!res.success) throw new Error(res.message);
+    } catch (error) {
+      throw new Error();
+    }
+  }
+
+  public static async modifyJoinRequest(data: {
+    travelId: TravelRequest["id"];
+    joinState: boolean;
+    passengerCode: Passenger["code"];
+  }): Promise<void> {
+    const token = getCookie("tkn");
+    try {
+      const res = await http.patch(`passenger/modify-join`, data, {
+        Authorization: `Bearer ${token}`,
+      });
+      if (!res.success) throw new Error(res.message);
     } catch (error) {
       throw new Error();
     }

@@ -1,7 +1,8 @@
 const QueryKeys = {
   AUTH: "auth",
   TRAVELS: "travels",
-  TRAVEL_DETAIL: "travel-detail",
+  TRAVEL_PASSENGERS: "travel-detail",
+  MY_TRAVELS: "my-travels",
   ZONES: "zones",
   PUCP_DATA: "pucp-data",
   DRIVER_DETAIL: "driver-detail",

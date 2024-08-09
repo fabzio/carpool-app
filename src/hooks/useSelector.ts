@@ -3,11 +3,13 @@ import { StoreType } from "@store/types";
 import useStore from "@store/index";
 import { SignUpStore } from "@store/signup/types";
 import UserStore from "@store/user/types";
+import TravelStore from "@store/travel/types";
 
 interface GlobalStore {
   theme: ThemeStore;
   signUp: SignUpStore;
   user: UserStore;
+  travel: TravelStore;
 }
 const useSelector = <T>(selector: (state: GlobalStore) => T): T => {
   const global: GlobalStore = {
@@ -31,6 +33,13 @@ const useSelector = <T>(selector: (state: GlobalStore) => T): T => {
       user: useStore((state: StoreType) => state.user),
       syncUser: useStore((state: StoreType) => state.syncUser),
     } as UserStore,
+
+    travel: {
+      selectedTravel: useStore((state: StoreType) => state.selectedTravel),
+      setSelectedTravel: useStore(
+        (state: StoreType) => state.setSelectedTravel
+      ),
+    } as TravelStore,
   };
   return selector(global);
 };
