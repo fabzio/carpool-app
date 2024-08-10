@@ -17,7 +17,6 @@ export default function PassengerFullForm({ formController }: Props) {
   const direction = !!parseInt(
     watch("direction") ?? getDefaultDirectionValue()
   );
-  console.log(direction);
   return (
     <>
       <label className="col-span-3 flex flex-col">

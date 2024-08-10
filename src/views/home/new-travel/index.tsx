@@ -27,13 +27,13 @@ interface Props {
 export default function NewTravel({ handleClose }: Props) {
   const travelForm = useForm({});
   const { user, type } = useSelector((state) => state.user);
+  const { turnOnNotification } = useSelector((state) => state.notification);
   const [simpleForm, setSimpleForm] = useState(true);
   const { data, setQueryStore } = useQueryStore<GenericTravel[]>(
     QueryKeys.TRAVELS
   );
   const queryClient = useQueryClient();
   const { mutate, isPending } = useMutation({
-    mutationKey: ["new-travel"],
     mutationFn: (travelData) =>
       type === "driver"
         ? DriverService.newOffer(travelData as InsertTravelOffer)
@@ -47,6 +47,7 @@ export default function NewTravel({ handleClose }: Props) {
     onSuccess: () => {
       setSimpleForm(true);
       toast.success("Viaje publicado");
+      turnOnNotification("newTravel");
     },
     onError: (error, __, context) => {
       if (context?.previousTravels) {
