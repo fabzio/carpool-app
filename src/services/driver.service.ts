@@ -34,7 +34,7 @@ class DriverService {
       if (!res.success) throw new Error(res.message);
       return res.data as TravelOffer["id"];
     } catch (error) {
-      throw new Error();
+      throw new Error((error as Error).message);
     }
   }
 
