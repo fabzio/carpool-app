@@ -58,7 +58,7 @@ class PassengerService {
       if (!res.success) throw new Error(res.message);
       return res.data as TravelRequest["id"];
     } catch (error) {
-      throw new Error();
+      throw new Error((error as Error).message);
     }
   }
 
@@ -77,7 +77,7 @@ class PassengerService {
       if (!res.success) throw new Error(res.message);
       return res.data as Travel["id"];
     } catch (error) {
-      throw new Error();
+      throw new Error((error as Error).message);
     }
   }
 
