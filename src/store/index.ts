@@ -6,6 +6,7 @@ import { StoreType } from "./types";
 import createSignUpSlice from "./signup/signup.store";
 import createUserSlice from "./user/user.store";
 import createTravelSlice from "./travel/travel.store";
+import createNotificationSlice from "./notifications/notifications.store";
 
 const storageOptions = {
   name: "store",
@@ -22,6 +23,7 @@ const useStore = create<StoreType>()(
         ...createSignUpSlice(...a),
         ...createUserSlice(...a),
         ...createTravelSlice(...a),
+        ...createNotificationSlice(...a),
       }),
       storageOptions
     )

@@ -4,12 +4,14 @@ import useStore from "@store/index";
 import { SignUpStore } from "@store/signup/types";
 import UserStore from "@store/user/types";
 import TravelStore from "@store/travel/types";
+import { NotificationStore } from "@store/notifications/types";
 
 interface GlobalStore {
   theme: ThemeStore;
   signUp: SignUpStore;
   user: UserStore;
   travel: TravelStore;
+  notification: NotificationStore;
 }
 const useSelector = <T>(selector: (state: GlobalStore) => T): T => {
   const global: GlobalStore = {
@@ -40,6 +42,16 @@ const useSelector = <T>(selector: (state: GlobalStore) => T): T => {
         (state: StoreType) => state.setSelectedTravel
       ),
     } as TravelStore,
+
+    notification: {
+      newTravel: useStore((state: StoreType) => state.newTravel),
+      resetNotification: useStore(
+        (state: StoreType) => state.resetNotification
+      ),
+      turnOnNotification: useStore(
+        (state: StoreType) => state.turnOnNotification
+      ),
+    } as NotificationStore,
   };
   return selector(global);
 };
