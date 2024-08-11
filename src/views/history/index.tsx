@@ -40,7 +40,7 @@ export default function History() {
 
   if (isLoading)
     return Array.from({ length: 3 }).map((_, i) => (
-      <div key={i} className="skeleton h-28 w-full  my-10 " />
+      <div key={i} className="skeleton h-28 w-full my-1" />
     ));
   if (isError) return <Error />;
 
