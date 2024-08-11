@@ -49,7 +49,7 @@ export default function HistoryItem({
               }
             >
               {capitalize(name.split(" ")[0])}
-              {type === "offer" ? "🚘" : "🙋"}
+              {type === "offer" ? "🚘" : "🤚"}
             </span>
             <span
               className={`badge ${
