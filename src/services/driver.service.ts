@@ -49,7 +49,7 @@ class DriverService {
       });
       if (!res.success) throw new Error(res.message);
     } catch (error) {
-      throw new Error();
+      throw new Error((error as Error).message);
     }
   }
 
@@ -64,7 +64,7 @@ class DriverService {
       });
       if (!res.success) throw new Error(res.message);
     } catch (error) {
-      throw new Error();
+      throw new Error((error as Error).message);
     }
   }
   public static async travelHistory({

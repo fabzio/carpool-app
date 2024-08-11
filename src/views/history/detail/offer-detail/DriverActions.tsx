@@ -1,9 +1,11 @@
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+
 import { ConfirmationModal, DropdownList } from "@components";
 import { useSelector } from "@hooks";
 import { TravelState } from "@interfaces/enums/TravelState";
-import { useState, useEffect } from "react";
 import { mapTravelText } from "../../utils";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import DriverService from "@services/driver.service";
 import QueryKeys from "@constants/queryKeys.constants";
 
@@ -18,7 +20,7 @@ export default function DriverActions({ driverCode }: Props) {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const queryClient = useQueryClient();
 
-  const { mutate, isSuccess } = useMutation({
+  const { mutate } = useMutation({
     mutationFn: (newState: TravelState) =>
       DriverService.modifyOffer({
         travelId: selectedTravel?.id!,
@@ -34,14 +36,17 @@ export default function DriverActions({ driverCode }: Props) {
         previousState: previous,
       };
     },
-    onSuccess: () => {
+    onSuccess: (_, newState) => {
       queryClient.invalidateQueries({
         queryKey: [QueryKeys.MY_TRAVELS],
       });
       setShowConfirmationModal(false);
+      if (newState === "CANCELED") toast.success("Oferta cancelada");
+      else toast.success("Estado actualizado");
     },
-    onError: (_, __, context) => {
+    onError: ({ message }, __, context) => {
       setSelectedTravel(context!.previousState);
+      toast.error(message);
     },
   });
 
@@ -54,12 +59,6 @@ export default function DriverActions({ driverCode }: Props) {
       mutate("CANCELED");
     }
   };
-
-  useEffect(() => {
-    if (isSuccess) {
-      setShowConfirmationModal(false);
-    }
-  }, [isSuccess]);
 
   return (
     <div className="flex flex-col w-full">
