@@ -19,6 +19,6 @@ root.render(
     <ThemeProvider>
       <RouterProvider router={router} />
     </ThemeProvider>
-    <Toaster position="top-left"/>
+    <Toaster position="top-right"/>
   </QueryClientProvider>
 );
