@@ -1,5 +1,6 @@
 import styles from "./index.module.css";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useQueryStore, useSelector } from "@hooks";
 import DriverService, { InsertTravelOffer } from "@services/driver.service";
@@ -26,6 +27,7 @@ interface Props {
 export default function NewTravel({ handleClose }: Props) {
   const travelForm = useForm({});
   const { user, type } = useSelector((state) => state.user);
+  const { turnOnNotification } = useSelector((state) => state.notification);
   const [simpleForm, setSimpleForm] = useState(true);
   const { data, setQueryStore } = useQueryStore<GenericTravel[]>(
     QueryKeys.TRAVELS
@@ -39,17 +41,19 @@ export default function NewTravel({ handleClose }: Props) {
     onMutate: async (travelData: GenericTravel) => {
       await queryClient.invalidateQueries({ queryKey: [QueryKeys.TRAVELS] });
       const context = optimisticUpdate(data, setQueryStore)(travelData);
-      console.log("close");
       handleClose();
       return context;
     },
     onSuccess: () => {
       setSimpleForm(true);
+      toast.success("Viaje publicado");
+      turnOnNotification("newTravel");
     },
-    onError: (_, __, context) => {
+    onError: (error, __, context) => {
       if (context?.previousTravels) {
         setQueryStore(() => context.previousTravels!);
       }
+      toast.error(error.message);
     },
     onSettled: async () => {
       await queryClient.invalidateQueries({ queryKey: [QueryKeys.TRAVELS] });
@@ -57,14 +61,12 @@ export default function NewTravel({ handleClose }: Props) {
   });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    console.log("data");
     e.preventDefault();
     const data = new FormData(e.currentTarget);
     const travelData =
       type === "driver"
         ? getDriverTravelData(data, user!)
         : getPassengerTravelData(data, user!);
-    console.log(travelData);
     mutate(travelData as GenericTravel);
   };
 

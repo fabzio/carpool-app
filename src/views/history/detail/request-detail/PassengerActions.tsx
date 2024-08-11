@@ -1,6 +1,9 @@
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+
 import { ConfirmationModal, DropdownList } from "@components";
 import { useSelector } from "@hooks";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { mapTravelText } from "../../utils";
 import { TravelState } from "@interfaces/enums/TravelState";
 import { useMutation, useQueryClient } from "@tanstack/react-query"; // Importar useQueryClient
@@ -8,19 +11,28 @@ import PassengerService from "@services/passenger.service";
 import QueryKeys from "@constants/queryKeys.constants";
 
 export default function PassengerActions() {
+  const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
   const { selectedTravel, setSelectedTravel } = useSelector(
     (state) => state.travel
   );
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
-  const queryClient = useQueryClient(); // Obtener el query client
+  const queryClient = useQueryClient();
 
-  const { mutate, isSuccess } = useMutation({
-    mutationFn: (newState: TravelState) =>
-      PassengerService.modifyRequest({
+  const { mutate } = useMutation({
+    mutationFn: (newState: TravelState) => {
+      if (newState === "CANCELED")
+        return PassengerService.modifyJoinRequest({
+          passengerCode: user?.code!,
+          travelId: selectedTravel?.id!,
+          joinState: false,
+        });
+
+      return PassengerService.modifyRequest({
         travelId: selectedTravel?.id!,
         travelState: newState,
-      }),
+      });
+    },
     onMutate: (newState) => {
       const previus = selectedTravel;
       setSelectedTravel({
@@ -31,14 +43,19 @@ export default function PassengerActions() {
         previusState: previus,
       };
     },
-    onSuccess: () => {
+    onSuccess: (_, newState) => {
       queryClient.invalidateQueries({
         queryKey: [QueryKeys.MY_TRAVELS],
       });
       setShowConfirmationModal(false);
+      if (newState === "CANCELED") {
+        toast.success("Participación cancelada");
+        navigate(-1);
+      } else toast.success("Estado actualizado");
     },
-    onError: (_, __, context) => {
+    onError: ({ message }, __, context) => {
       setSelectedTravel(context!.previusState);
+      toast.error(message);
     },
   });
 
@@ -48,15 +65,9 @@ export default function PassengerActions() {
 
   const handleConfirm = () => {
     if (selectedTravel) {
-      mutate("CANCELED"); // Pasar el nuevo estado como argumento
+      mutate("CANCELED");
     }
   };
-
-  useEffect(() => {
-    if (isSuccess) {
-      setShowConfirmationModal(false);
-    }
-  }, [isSuccess]);
 
   return (
     <div className="grid grid-cols-2 w-full">
@@ -74,10 +85,14 @@ export default function PassengerActions() {
             .filter((state) => state !== "CANCELED" && state !== "WAITING")
             .map((state) => mapTravelText[state])}
           selectedValue={mapTravelText[selectedTravel?.state!]}
-          disabled={selectedTravel?.state === "CANCELED"}
+          disabled={(["CANCELED", "OFF"] as TravelState[]).includes(
+            selectedTravel?.state!
+          )}
         />
       )}
-      {selectedTravel?.state !== "CANCELED" && (
+      {!(["CANCELED", "OFF"] as TravelState[]).includes(
+        selectedTravel?.state!
+      ) && (
         <button
           className="btn btn-error col-span-2 w-full"
           onClick={() => setShowConfirmationModal(true)}
@@ -90,8 +105,12 @@ export default function PassengerActions() {
         handleClose={handleClose}
         handleConfirm={handleConfirm}
       >
-        <h1 className="text-2xl font-bold">Cancelar participación</h1>
-        <p>¿Estás segur@ de que deseas cancelar tu participación?</p>
+        <h1 className="text-2xl font-bold text-center">
+          Cancelar participación
+        </h1>
+        <p className="text-center text-pretty">
+          ¿Estás segur@ de que deseas cancelar tu participación?
+        </p>
       </ConfirmationModal>
     </div>
   );

@@ -1,12 +1,14 @@
+import toast from "react-hot-toast";
+import moment from "moment";
+import { useMutation, useQueries, useQueryClient } from "@tanstack/react-query";
+
 import { SeatsStatus } from "@components";
 import QueryKeys from "@constants/queryKeys.constants";
 import { useQueryStore } from "@hooks";
 import PassengerService from "@services/passenger.service";
 import TravelService from "@services/travel.service";
-import { useMutation, useQueries, useQueryClient } from "@tanstack/react-query";
 import { capitalize } from "@utils/capitalize";
 import { formatCurrency } from "@utils/formatCurrency";
-import moment from "moment";
 
 interface Props {
   handleClose: () => void;
@@ -55,9 +57,11 @@ export default function RequestPassengerView({ handleClose }: Props) {
       queryClient.invalidateQueries({
         queryKey: [QueryKeys.TRAVELS, travelId],
       });
+      toast.success("Te uniste a la solicitud de viaje");
     },
-    onError: (_, __, context) => {
+    onError: ({ message }, __, context) => {
       setQueryStore(() => context?.previus!);
+      toast.error(message);
     },
   });
   const handleJoinRequest = () => {
