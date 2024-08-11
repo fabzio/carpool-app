@@ -13,7 +13,7 @@ export default function PassengerFullForm({ formController }: Props) {
   const { user } = useSelector((state) => state.user) as {
     user: Partial<Passenger>;
   };
-  const isForMe = watch("forMe") ?? true;
+
   const direction = !!parseInt(
     watch("direction") ?? getDefaultDirectionValue()
   );
@@ -109,19 +109,6 @@ export default function PassengerFullForm({ formController }: Props) {
           id="forMe"
         />
       </label>
-      {isForMe !== undefined && !isForMe && (
-        <label className="col-span-2 flex flex-col">
-          <span className="label-text">Nombre</span>
-          <input
-            className="input input-bordered"
-            type="text"
-            {...register("name")}
-            name="name"
-            id="name"
-            required
-          />
-        </label>
-      )}
     </>
   );
 }
