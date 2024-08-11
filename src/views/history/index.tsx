@@ -1,9 +1,9 @@
 import { useEffect } from "react";
-import { Error, Loading } from "@components";
+import { Error } from "@components";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import HistoryList from "./HistoryList";
 import PassengerService from "@services/passenger.service";
-import { useScrollPosition, useSelector } from "@hooks";
+import { useIntersectionObserver, useSelector } from "@hooks";
 import QueryKeys from "@constants/queryKeys.constants";
 import DriverService from "@services/driver.service";
 
@@ -13,10 +13,9 @@ export default function History() {
     data,
     isLoading,
     isError,
+    isFetchingNextPage,
     fetchNextPage,
     hasNextPage,
-    isFetchingNextPage,
-    isPending,
   } = useInfiniteQuery({
     queryKey: [QueryKeys.MY_TRAVELS],
     queryFn:
@@ -29,39 +28,31 @@ export default function History() {
     getPreviousPageParam: (firstPage) => firstPage.page - 1,
   });
 
-  const { scrollPosition, isFull } = useScrollPosition();
+  const { elementRef, isVisible } = useIntersectionObserver();
 
   useEffect(() => {
-    if (
-      (scrollPosition > 0.9 || isFull) &&
-      hasNextPage &&
-      !isFetchingNextPage &&
-      !isPending
-    ) {
+    if (isVisible && hasNextPage && !isFetchingNextPage) {
       fetchNextPage();
     }
-  }, [
-    scrollPosition,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    isFull,
-    isPending,
-  ]);
+  }, [isVisible, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-  const pagintedTravels = data?.pages.flatMap((page) => page.data);
+  const paginatedTravels = data?.pages.flatMap((page) => page.data);
 
-  if (isLoading) return <Loading elem />;
+  if (isLoading)
+    return Array.from({ length: 3 }).map((_, i) => (
+      <div key={i} className="skeleton h-28 w-full my-1" />
+    ));
   if (isError) return <Error />;
 
   return (
-    <div>
-      <HistoryList travelHistory={pagintedTravels} />
-      {isFetchingNextPage && (
-        <div className="w-full flex justify-center items-center my-10">
-          <span className="loading loading-dots"></span>
-        </div>
-      )}
+    <div className="px-1">
+      <HistoryList travelHistory={paginatedTravels} />
+      <div
+        ref={elementRef}
+        className="h-10 w-full flex justify-center items-center"
+      >
+        {isFetchingNextPage && <span className="loading loading-dots "></span>}
+      </div>
     </div>
   );
 }

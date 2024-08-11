@@ -1,3 +1,7 @@
+import toast from "react-hot-toast";
+import moment from "moment";
+import { useMutation, useQueries, useQueryClient } from "@tanstack/react-query";
+
 import { SeatsStatus } from "@components";
 import QueryKeys from "@constants/queryKeys.constants";
 import { useQueryStore, useSelector } from "@hooks";
@@ -5,10 +9,8 @@ import type { Driver } from "@interfaces/models/driver.d.ts";
 import DriverService from "@services/driver.service";
 import PassengerService from "@services/passenger.service";
 import TravelService from "@services/travel.service";
-import { useMutation, useQueries, useQueryClient } from "@tanstack/react-query";
 import { capitalize } from "@utils/capitalize";
 import { formatCurrency } from "@utils/formatCurrency";
-import moment from "moment";
 
 interface Props {
   handleClose: () => void;
@@ -57,11 +59,12 @@ export default function RequestDriverView({ handleClose }: Props) {
       queryClient.invalidateQueries({
         queryKey: [QueryKeys.TRAVELS],
       });
-
       handleClose();
+      toast.success("Viaje tomado");
     },
-    onError: (_, __, context) => {
+    onError: ({message}, __, context) => {
       setQueryStore(() => context?.previus!);
+      toast.error(message);
     },
   });
   const handleTakeRequest = () => {
@@ -78,7 +81,7 @@ export default function RequestDriverView({ handleClose }: Props) {
       <header className="flex flex-col py-2">
         <div className="flex justify-between">
           <h2 className="font-bold text-3xl">
-            {capitalize(passengerDetail?.name.split(" ")[0]) + " 🤚"}
+            {capitalize(travelSelected?.name.split(" ")[0]) + " 🤚"}
           </h2>
           <span className="text-2xl font-bold">
             {formatCurrency(travelSelected?.fee)}{" "}
