@@ -23,16 +23,16 @@ export default function TravelCard({
 
   return (
     <article
-      className={`card card-compact shadow-xl bg-gradient-to-b from-transparent ${
+      className={`card card-compact shadow-xl bg-gradient-to-b from-transparent flex-grow ${
         preview
           ? "blur-xs animate-pulse"
           : ` ${isLight ? "to-base-200" : "to-base-300"}`
       }`}
       onClick={selectTravel(travelId, setQueryStore)}
     >
-      <div className="card-body">
+      <div className="card-body justify-around">
         <header className="flex flex-col">
-          <div className="flex justify-between h-4 items-center">
+          <div className="flex justify-between h-4">
             <time
               className="text-accent font-bold"
               dateTime={moment(travelDate).format()}
@@ -47,16 +47,16 @@ export default function TravelCard({
               {fee && formatCurrency(fee)}
             </span>
           </div>
-          <div className="flex items-center gap-2">
+        </header>
+        <main className="flex flex-col">
+          <section className="flex items-center gap-2">
             <h2 className="card-title font-bold text-2xl">
               {capitalize(name.split(" ")[0])}
             </h2>
             <span aria-label={isOffer ? "offer" : "request"}>
-              {isOffer ? "🚘" : "🙋"}
+              {isOffer ? "🚘" : "🤚"}
             </span>
-          </div>
-        </header>
-        <main className="flex flex-col">
+          </section>
           <section>
             <span
               className={`badge ${
@@ -72,22 +72,22 @@ export default function TravelCard({
               reservedSeats={isOffer ? seats! - freeSeats! : seats!}
             />
           </section>
-          <section className="flex flex-col text-base-content text-opacity-70 items-end">
-            <span className="">
-              {isOffer
-                ? direction
-                  ? landsOfferText
-                  : offOfferText
-                : direction
-                ? landsRequestText
-                : offRequestText}
-            </span>
-            <time className="flex justify-end gap-1 font-bold">
-              <IconClock size={16} strokeWidth={3} />
-              {moment(travelDate).format("hh:mm a")}
-            </time>
-          </section>
         </main>
+        <footer className="flex flex-col text-base-content text-opacity-70 items-end">
+          <span className="">
+            {isOffer
+              ? direction
+                ? landsOfferText
+                : offOfferText
+              : direction
+              ? landsRequestText
+              : offRequestText}
+          </span>
+          <time className="flex justify-end gap-1 font-bold">
+            <IconClock size={16} strokeWidth={3} />
+            {moment(travelDate).format("hh:mm a")}
+          </time>
+        </footer>
       </div>
     </article>
   );
