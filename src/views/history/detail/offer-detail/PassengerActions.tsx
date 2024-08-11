@@ -3,7 +3,7 @@ import { useSelector } from "@hooks";
 import type { Passenger } from "@interfaces/models/passenger";
 import PassengerService from "@services/passenger.service";
 import { useMutation } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
@@ -15,7 +15,7 @@ export default function PassengerActions({ passengerCode }: Props) {
   const navigate = useNavigate();
   const { selectedTravel } = useSelector((state) => state.travel);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
-  const { mutate, isSuccess } = useMutation({
+  const { mutate } = useMutation({
     mutationFn: () =>
       PassengerService.modifyJoinRequest({
         travelId: selectedTravel?.id!,
