@@ -77,7 +77,7 @@ export default function PassengerView({ handleClose }: Props) {
       <header className="flex flex-col py-2">
         <div className="flex justify-between">
           <h2 className="font-bold text-3xl ">
-            {capitalize(driverDetail?.name.split(" ")[0]) + " 🚘"}
+            {capitalize(travelSelected?.name.split(" ")[0]) + " 🚘"}
           </h2>
           <span className="text-2xl font-bold ">
             {formatCurrency(travelSelected?.fee)}{" "}
