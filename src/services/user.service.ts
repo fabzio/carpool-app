@@ -16,7 +16,6 @@ class UserService {
     try {
       if (!data) throw new Error();
       const res = await http.post("user", data);
-      console.log(res);
       return {
         success: res.success,
         message: res.message,

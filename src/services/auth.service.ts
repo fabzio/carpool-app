@@ -1,6 +1,6 @@
+import { getCookie, setCookie } from "react-use-cookie";
 import { ResponseAPI } from "@interfaces/responseAPI.interface";
 import { http } from "@utils/http";
-import { getCookie } from "react-use-cookie";
 
 class AuthService {
   public static async logIn(data: {
@@ -8,10 +8,14 @@ class AuthService {
     password: string;
   }): Promise<ResponseAPI> {
     try {
-      const res = await http.post("auth/login", data);
+      const res = await http.post("auth/login", data, {
+        credentials: "include",
+      });
+      if (!res.success) throw new Error(res.message);
+      setCookie("tkn", res.data);
       return res;
     } catch (error) {
-      throw new Error();
+      throw new Error((error as Error).message);
     }
   }
 

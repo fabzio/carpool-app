@@ -1,5 +1,6 @@
 const Paths = {
   SING_UP: "/signup",
+  SING_IN: "/signin",
   HOME: "/pool",
   HISTORY: "/historial",
   HISTORY_DETAIL: "/historial/detalle",

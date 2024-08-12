@@ -1,10 +1,13 @@
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+
 import SelectRole from "./SelectRole";
 import UserNotAllowed from "./UserNotAllowed";
 import UserService from "@services/user.service";
-import { useEffect, useState } from "react";
 import { useSelector } from "@hooks";
 import QueryKeys from "@constants/queryKeys.constants";
+import Paths from "@constants/paths.constants";
 
 type SignUpRequest = {
   phone: string;
@@ -83,6 +86,12 @@ export default function VerifyUser() {
                 "Regístrate"
               )}
             </button>
+            <span className="divider text-base-content text-opacity-50">o</span>
+            <Link to={Paths.SING_IN} className="mx-auto">
+              <button className="btn btn-primary btn-outline ">
+                Inicia Sesión
+              </button>
+            </Link>
           </form>
         </>
       )}
