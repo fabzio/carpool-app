@@ -34,6 +34,8 @@ const useSelector = <T>(selector: (state: GlobalStore) => T): T => {
       fetched: useStore((state: StoreType) => state.fetched),
       user: useStore((state: StoreType) => state.user),
       syncUser: useStore((state: StoreType) => state.syncUser),
+      setCode: useStore((state: StoreType) => state.setCode),
+      setType: useStore((state: StoreType) => state.setType),
     } as UserStore,
 
     travel: {
