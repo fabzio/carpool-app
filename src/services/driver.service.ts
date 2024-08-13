@@ -11,6 +11,17 @@ export type InsertTravelOffer = {
   freeSeats: TravelOffer["freeSeats"];
 };
 class DriverService {
+  public static async createDriver(data: Partial<Driver>): Promise<void> {
+    const token = getCookie("tkn");
+    try {
+      const res = await http.post("driver", data, {
+        Authorization: `Bearer ${token}`,
+      });
+      if (!res.success) throw new Error(res.message);
+    } catch (error) {
+      throw new Error((error as Error).message);
+    }
+  }
   public static async getDriverByCode(code: Driver["code"]): Promise<Driver> {
     const token = getCookie("tkn");
     try {
