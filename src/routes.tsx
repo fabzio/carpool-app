@@ -4,6 +4,7 @@ import {
   LazyHistory,
   LazyHistoryDetail,
   LazyHome,
+  LazySelectRole,
   LazySignUp,
   LazySingIn,
 } from "./views/lazy";
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: Paths.SING_IN,
         element: <LazySingIn />,
+      },
+      {
+        path: Paths.CHOOSE_ROLE,
+        element: <LazySelectRole />,
       },
     ],
   },
