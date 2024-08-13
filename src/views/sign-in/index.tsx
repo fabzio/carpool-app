@@ -1,4 +1,5 @@
 import Paths from "@constants/paths.constants";
+import { useSelector } from "@hooks";
 import AuthService from "@services/auth.service";
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
@@ -6,9 +7,11 @@ import { Link, useNavigate } from "react-router-dom";
 
 export default function SignIn() {
   const navigate = useNavigate();
+  const { setCode } = useSelector((state) => state.user);
   const { mutate, isPending } = useMutation({
     mutationFn: AuthService.logIn,
-    onSuccess: () => {
+    onSuccess: (_, { code }) => {
+      setCode(code);
       navigate(Paths.HOME);
       toast.success("Inicio de sesión exitoso");
     },
@@ -34,7 +37,7 @@ export default function SignIn() {
         </h2>
         <label htmlFor="code">Código PUCP</label>
         <input
-          type="number"
+          type="tel"
           name="code"
           required
           className="input 

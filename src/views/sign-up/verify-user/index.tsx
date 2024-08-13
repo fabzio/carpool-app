@@ -1,56 +1,59 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-
-import SelectRole from "./SelectRole";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
 import UserNotAllowed from "./UserNotAllowed";
 import UserService from "@services/user.service";
 import { useSelector } from "@hooks";
-import QueryKeys from "@constants/queryKeys.constants";
 import Paths from "@constants/paths.constants";
+import toast from "react-hot-toast";
 
-type SignUpRequest = {
-  phone: string;
-  code: string;
-  zoneId: number;
-};
 export default function VerifyUser() {
-  const [userData, setUserData] = useState<SignUpRequest | null>(null);
-  const { data, isLoading, isFetched, refetch } = useQuery({
-    queryKey: [QueryKeys.PUCP_DATA, userData],
-    queryFn: () => UserService.signUp(userData),
-    enabled: false,
+  const [message, setMessage] = useState<string | null>(null);
+  const { syncUser, user } = useSelector((state) => state.user);
+  const navigate = useNavigate();
+  const { mutate, isPending, isError } = useMutation({
+    mutationFn: UserService.signUp,
+    onSuccess: ({ name }) => {
+      syncUser({
+        ...user,
+        name,
+        state: "INACTIVE",
+      });
+      navigate(Paths.CHOOSE_ROLE);
+    },
+    onError: (error) => {
+      setMessage(error.message);
+    },
   });
   const { createUserData } = useSelector((state) => state.signUp);
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const code: string = (e.target as HTMLFormElement).code.value;
-    const phone: string = (e.target as HTMLFormElement).phone.value;
+    const formData = new FormData(e.target as HTMLFormElement);
+    const code = formData.get("code") as string;
+    const phone = formData.get("phone") as string;
     const phoneRe = /^\d{9}$/;
     const codeRe = /^\d{8}$/;
-    if (!codeRe.test(code.trim())) return;
-    if (!phoneRe.test(phone.trim())) return;
+    if (!codeRe.test(code.trim())) {
+      toast.error("El código PUCP debe tener 8 dígitos");
+      return;
+    }
+    if (!phoneRe.test(phone.trim())) {
+      toast.error("El número de teléfono debe tener 9 dígitos");
+      return;
+    }
 
     const data = {
       phone: phone,
       code,
       zoneId: createUserData!.zoneId,
     };
-    setUserData(data);
+    mutate(data);
   };
-
-  useEffect(() => {
-    if (userData) refetch();
-  }, [userData, refetch]);
-
-  const userId = data?.userId;
-  const name = data?.name;
-  const success = data?.success;
-  const message = data?.message;
   return (
     <div className="w-full h-3/4 mt-10 px-4 flex flex-col items-center">
-      {!isFetched && (
+      {!isError && (
         <>
+          {" "}
           <h2 className="font-bold text-center text-xl mb-5">
             Vamos a conocernos ;)
           </h2>
@@ -60,27 +63,29 @@ export default function VerifyUser() {
             </label>
             <input
               id="phone"
+              name="phone"
               type="tel"
               className="input input-bordered"
               required
-              disabled={isLoading || isFetched}
+              disabled={isPending}
             />
             <label htmlFor="code" className="text-lg mb-1">
               Ingresa tu código PUCP
             </label>
             <input
               id="code"
+              name="code"
               type="tel"
               className="input input-bordered"
               required
-              disabled={isLoading || isFetched}
+              disabled={isPending}
             />
             <button
               className={`btn btn-primary mx-10 relative ${
-                isLoading || isFetched ? "btn-disabled" : ""
+                isPending ? "btn-disabled" : ""
               }`}
             >
-              {isLoading ? (
+              {isPending ? (
                 <span className="loading loading-spinner"></span>
               ) : (
                 "Regístrate"
@@ -96,11 +101,10 @@ export default function VerifyUser() {
         </>
       )}
       <section className="h-full grid">
-        {isLoading && (
+        {isPending && (
           <p>Accediendo al campus virtual, esto puede tardar un momento....</p>
         )}
-        {isFetched && success && <SelectRole userId={userId!} name={name!} />}
-        {isFetched && !success && <UserNotAllowed message={message!} />}
+        {isError && <UserNotAllowed message={message!} />}
       </section>
     </div>
   );
