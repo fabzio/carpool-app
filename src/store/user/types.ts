@@ -3,7 +3,6 @@ import type { Passenger } from "@interfaces/models/passenger.d.ts";
 
 interface UserStore {
   type: "passenger" | "driver" | "";
-  fetched: boolean;
   user: Partial<Driver> | Partial<Passenger> | null;
   syncUser: (user: Partial<Driver> | Partial<Passenger> | null) => void;
   setCode: (code: string) => void;
