@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useQueries, useQuery } from "@tanstack/react-query";
 import { Navigate, Outlet } from "react-router-dom";
 import { Loading } from "@components";
@@ -46,24 +47,25 @@ export default function AuthProvider({ children }: Props) {
     enabled: ["DRIVER", "PASSENGER"].includes(userInfo?.userType ?? ""),
   });
 
+  useEffect(() => {
+    if (userInfo?.userType === "INACTIVE") {
+      syncUser({
+        ...user,
+        name: userInfo.name,
+        state: "INACTIVE",
+      });
+    } else if (userInfo?.userType === "BOTH") {
+      syncUser({
+        ...user,
+        name: userInfo.name,
+        state: "ACTIVE",
+      });
+    } else if (isSuccess) {
+      syncUser(profileData);
+    }
+  }, [userInfo, isSuccess, profileData, syncUser, user]);
+
   if (isLoading || profileLoading) return <Loading />;
   if (!success) return <Navigate to={Paths.SING_IN} />;
-  if (userInfo?.userType === "INACTIVE") {
-    syncUser({
-      ...user,
-      name: userInfo.name,
-      state: "INACTIVE",
-    });
-    return <Navigate to={Paths.CHOOSE_ROLE} />;
-  }
-  if (userInfo?.userType === "BOTH") {
-    syncUser({
-      ...user,
-      name: userInfo.name,
-      state: "ACTIVE",
-    });
-    return <Navigate to={Paths.CHOOSE_ROLE} />;
-  }
-  if (isSuccess) syncUser(profileData);
   return children ? children : <Outlet />;
 }
