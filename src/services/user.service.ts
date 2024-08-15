@@ -1,6 +1,6 @@
 import type { User } from "@interfaces/models/user";
 import { http } from "@utils/http";
-import { getCookie } from "react-use-cookie";
+import { getCookie, setCookie } from "react-use-cookie";
 
 class UserService {
   public static async signUp(
@@ -19,6 +19,7 @@ class UserService {
       if (!data) throw new Error();
       const res = await http.post("user", data);
       if (!res.success) throw new Error(res.message);
+      setCookie("tkn", res.data.token);
       return {
         success: res.success,
         message: res.message,

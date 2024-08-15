@@ -13,6 +13,19 @@ export type InsertTravelRequest = {
 };
 
 class PassengerService {
+
+  public static async createPassenger(data: {
+    pickUpPoint: string;
+  }): Promise<Passenger> {
+    try {
+      const res = await http.post("passenger", data);
+      if (!res.success) throw new Error(res.message);
+      return res.data as Passenger;
+    } catch (error) {
+      throw new Error((error as Error).message);
+    }
+  }
+
   public static async getPassengerByCode(
     code: Passenger["code"]
   ): Promise<Passenger> {
