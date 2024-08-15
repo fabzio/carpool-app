@@ -2,14 +2,11 @@ import { useEffect, useState } from "react";
 import { useSelector } from "@hooks";
 import ChooseZone from "./choose-zone";
 import VerifyUser from "./verify-user";
-import DriverForm from "./driver-form";
-import PassengerForm from "./passenger-form";
 import { IconCaretLeftFilled } from "@tabler/icons-react";
 
 const steps = [
   <ChooseZone />,
   <VerifyUser />,
-  { driver: <DriverForm />, passenger: <PassengerForm /> },
 ];
 
 export default function SignUp() {
@@ -20,7 +17,6 @@ export default function SignUp() {
     if (step === 1 && createUserData?.zoneId) {
       setStep(2);
     } else if (step === 2 && createUserData?.role) {
-      setStep(3);
     }
   }, [createUserData]);
 

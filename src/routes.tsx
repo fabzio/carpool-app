@@ -4,7 +4,9 @@ import {
   LazyHistory,
   LazyHistoryDetail,
   LazyHome,
+  LazySelectRole,
   LazySignUp,
+  LazySingIn,
 } from "./views/lazy";
 import AuthProvider from "./contexts/AuthProvider";
 import Paths from "@constants/paths.constants";
@@ -16,6 +18,14 @@ const router = createBrowserRouter([
       {
         path: Paths.SING_UP,
         element: <LazySignUp />,
+      },
+      {
+        path: Paths.SING_IN,
+        element: <LazySingIn />,
+      },
+      {
+        path: Paths.CHOOSE_ROLE,
+        element: <LazySelectRole />,
       },
     ],
   },

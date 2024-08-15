@@ -1,4 +1,6 @@
 import { IconMoodSadDizzy, IconMoodWink } from "@tabler/icons-react";
+import { Link } from "react-router-dom";
+import Paths from "@constants/paths.constants";
 
 export default function NotRegisted({ message }: { message: string }) {
   const existingUser = message === "El usuario ya existe";
@@ -18,7 +20,11 @@ export default function NotRegisted({ message }: { message: string }) {
       {errroIcon}
       <p className="text-center text-balance">{errorSubtitle}</p>
       {existingUser && (
-        <button className="btn btn-primary mt-5">Ir a inicio de sesión</button>
+        <Link to={Paths.SING_IN}>
+          <button className="btn btn-primary mt-5">
+            Ir a inicio de sesión
+          </button>
+        </Link>
       )}
     </article>
   );
