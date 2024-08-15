@@ -13,10 +13,11 @@ export default function VerifyUser() {
   const navigate = useNavigate();
   const { mutate, isPending, isError } = useMutation({
     mutationFn: UserService.signUp,
-    onSuccess: ({ name }) => {
+    onSuccess: ({ name }, req) => {
       syncUser({
         ...user,
         name,
+        code: req?.code,
         state: "INACTIVE",
       });
       navigate(Paths.CHOOSE_ROLE);
