@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 export default function SignIn() {
   const navigate = useNavigate();
-  const { setCode } = useSelector((state) => state.user);
+  const { user, setCode } = useSelector((state) => state.user);
   const { mutate, isPending } = useMutation({
     mutationFn: AuthService.logIn,
     onSuccess: (_, { code }) => {
@@ -42,6 +42,7 @@ export default function SignIn() {
           required
           className="input 
           input-bordered"
+          defaultValue={user?.code ?? ""}
         />
         <label htmlFor="password">Contraseña</label>
         <input
