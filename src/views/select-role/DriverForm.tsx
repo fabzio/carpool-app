@@ -1,19 +1,39 @@
+import Paths from "@constants/paths.constants";
+import { useSelector } from "@hooks";
 import DriverService from "@services/driver.service";
 import { useMutation } from "@tanstack/react-query";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export default function DriverForm() {
+  const { user } = useSelector((state) => state.user);
+  const navigate = useNavigate();
   const { mutate } = useMutation({
     mutationFn: DriverService.createDriver,
+    onSuccess: () => {
+      toast.success(
+        "Su cuenta fue activada, revisa tu correo PUCP para continuar :D",
+        {
+          duration: 10000,
+        }
+      );
+      navigate(Paths.LOGIN);
+    },
+    onError: ({ message }) => {
+      toast.error(message);
+    },
   });
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
     const driverData = {
-      plate: data.get("plate")?.toString()!,
+      code: user?.code,
+      plate: data.get("plate")?.toString()!.toUpperCase(),
       vehicleDescription: data.get("vehicleDescription")?.toString()!,
       seats: parseInt(data.get("seats")?.toString()!),
-      fee: Number(data.get("fee")?.toString()),
-      route: data.get("route")?.toString()!,
+      fee: Number(data.get("fee")),
+      routeIn: data.get("routeIn")?.toString()!,
+      routeOut: data.get("routeOut")?.toString()!,
     };
     mutate(driverData);
   };
@@ -70,14 +90,25 @@ export default function DriverForm() {
             required
           />
         </label>
-        <label htmlFor="route" className="col-span-2 flex flex-col">
-          Ruta
+        <label htmlFor="routeIn" className="col-span-2 flex flex-col">
+          Ruta de ida
           <textarea
-            id="route"
-            name="route"
+            id="routeIn"
+            name="routeIn"
             className="textarea textarea-bordered"
-            placeholder="Describe la ruta que sigues (ida y vuelta)"
-            maxLength={150}
+            placeholder="Describe la ruta de ida que sigues"
+            maxLength={100}
+            required
+          />
+        </label>
+        <label htmlFor="routeOut" className="col-span-2 flex flex-col">
+          Ruta de vuelta
+          <textarea
+            id="routeOut"
+            name="routeOut"
+            className="textarea textarea-bordered"
+            placeholder="Describe la ruta de vuelta que sigues"
+            maxLength={100}
             required
           />
         </label>
