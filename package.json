@@ -6,9 +6,9 @@
     "dev": "farm start",
     "start": "farm start",
     "build:tsc": "tsc",
-    "build": "farm build",
+    "build": "farm build  && cp ./dist/index.html ./dist/404.html",
     "preview": "farm preview",
-    "predeploy": "npm run build && cp ./dist/index.html ./dist/404.html",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "clean": "farm clean"
   },
