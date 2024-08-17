@@ -9,8 +9,7 @@ export default function HistoryList({ travelHistory = [] }: Props) {
     return (
       <div className="w-full h-full flex flex-col justify-center items-center">
         <h2> ¿Nuev@ por aquí? </h2>
-        <br />
-        <strong>
+        <strong className="text-center text-balance">
           No tienes viajes aún, ¿Que tal si te animas ahora?
         </strong>
       </div>
