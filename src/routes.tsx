@@ -53,6 +53,9 @@ const router = createBrowserRouter([
     path: "*",
     element: <div>Not Found</div>,
   },
-]);
+],
+{
+  basename: "/Carpool"
+});
 
 export default router;

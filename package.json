@@ -1,14 +1,14 @@
 {
   "name": "react-template",
   "version": "1.0.0",
-  "homepage": "https://fabzio.github.io/carpool-app-frontend",
+  "homepage": "https://fabzio.github.io/Carpool",
   "scripts": {
     "dev": "farm start",
     "start": "farm start",
     "build:tsc": "tsc",
     "build": "farm build",
     "preview": "farm preview",
-    "predeploy": "npm run build",
+    "predeploy": "npm run build && cp ./dist/index.html ./dist/404.html",
     "deploy": "gh-pages -d dist",
     "clean": "farm clean"
   },
