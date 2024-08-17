@@ -1,22 +1,19 @@
 {
   "name": "react-template",
   "version": "1.0.0",
-  "homepage": "https://fabzio.github.io/Carpool",
+  "homepage": "http://mycarpoolapp.s3-website-us-east-1.amazonaws.com",
   "scripts": {
     "dev": "farm start",
     "start": "farm start",
     "build:tsc": "tsc",
     "build": "farm build  && cp ./dist/index.html ./dist/404.html",
     "preview": "farm preview",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist",
     "clean": "farm clean"
   },
   "dependencies": {
     "@hookform/resolvers": "3.9.0",
     "@tabler/icons-react": "3.11.0",
     "@tanstack/react-query": "5.51.11",
-    "gh-pages": "6.1.1",
     "moment": "2.30.1",
     "react": "18.3.1",
     "react-dom": "18.3.1",
