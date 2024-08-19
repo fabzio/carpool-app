@@ -4,6 +4,7 @@ import {
   LazyHistory,
   LazyHistoryDetail,
   LazyHome,
+  LazyProfile,
   LazySelectRole,
   LazySignUp,
   LazySingIn,
@@ -55,7 +56,7 @@ const router = createBrowserRouter([
       },
       {
         path: Paths.PROFILE,
-        element: <div>Profile</div>,
+        element: <LazyProfile />,
       },
     ],
   },

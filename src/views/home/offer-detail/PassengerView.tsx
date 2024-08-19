@@ -108,7 +108,7 @@ export default function PassengerView({ handleClose }: Props) {
           />
         </section>
         <section className="py-1">
-          <p className="text-lg text-balance">{driverDetail?.route}</p>
+          <p className="text-lg text-balance">{travelSelected?.customPoint}</p>
         </section>
         <section>
           {travelPassengers?.length! > 0 && (

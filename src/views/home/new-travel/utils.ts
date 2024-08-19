@@ -98,7 +98,7 @@ export const getPassengerTravelData = (
   const travelTime = data.get("travelTime");
   const forSelf = (data.get("forMe") ?? "true") === "true";
   const numPassengers = parseInt((data.get("numPassengers") as string) ?? "1");
-  const customPoint = (data.get("customPoint") as string) ?? "xd";
+  const customPoint = (data.get("customPoint") as string) ?? user.pickUpPoint;
   const travelDate: GenericTravel["travelDate"] = `${travelDay}T${travelTime}:00`;
   const temporalId: GenericTravel["travelId"] = Math.random().toString(36);
 
