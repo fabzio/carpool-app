@@ -8,7 +8,10 @@ const createUserSlice: SliceStore<UserStore> = (set) => ({
   type: "",
   user: {} as unknown as Driver | Passenger,
   syncUser: (user: Partial<Driver> | Partial<Passenger> | null) => {
-    set((state) => ({ ...state, user, fetched: true }));
+    set((state) => ({
+      ...state,
+      user,
+    }));
   },
   setCode: (code: User["code"]) => {
     set((state) => ({ ...state, user: { ...state.user, code } }));

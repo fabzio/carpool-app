@@ -64,7 +64,9 @@ export default function OfferDetail({ offer }: Props) {
           </p>
         </section>
         <section className="py-1">
-          <p className="text-lg text-balance">{driverDetail?.route}</p>
+          <p className="text-lg text-balance">
+            {offer.direction ? driverDetail?.routeIn : driverDetail?.routeOut}
+          </p>
         </section>
 
         <section className="py-2 flex justify-between">

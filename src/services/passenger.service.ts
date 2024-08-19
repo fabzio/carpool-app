@@ -13,7 +13,6 @@ export type InsertTravelRequest = {
 };
 
 class PassengerService {
-
   public static async createPassenger(data: {
     pickUpPoint: string;
   }): Promise<Passenger> {
@@ -24,6 +23,19 @@ class PassengerService {
     } catch (error) {
       throw new Error((error as Error).message);
     }
+  }
+
+  public static async updatePassenger(data: Partial<Passenger>): Promise<void> {
+    console.log(data);
+    // const token = getCookie("tkn");
+    // try {
+    //   const res = await http.patch("passenger", data, {
+    //     Authorization: `Bearer ${token}`,
+    //   });
+    //   if (!res.success) throw new Error(res.message);
+    // } catch (error) {
+    //   throw new Error((error as Error).message);
+    // }
   }
 
   public static async getPassengerByCode(

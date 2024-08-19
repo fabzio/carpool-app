@@ -2,7 +2,7 @@ name: Build
 
 on:
   push:
-    branches: ["*"]
+    branches-ignore: [main]
 
 jobs:
   build:
@@ -19,7 +19,7 @@ jobs:
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4.0.0
-        with: 
+        with:
           version: 8
 
       - name: Install dependencies
