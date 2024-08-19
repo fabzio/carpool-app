@@ -1,0 +1,1 @@
+{"version":3,"sources":["/src/interfaces/enums/TravelDirection.ts"],"sourcesContent":["export const TravelDirection =  {\r\n  OUTBOUND: 0,\r\n  INBOUND: 1.\r\n} as const;\r\n\r\nexport type TravelDirection = (typeof TravelDirection)[keyof typeof TravelDirection];"],"names":[],"mappings":"sQAAO,GAAA,CAAM,CAAA,CAAmB,CAC9B,QAAA,CAAU,CAAA,CACV,OAAA,CAAS,CACX,CAAA,CAAA"}

@@ -1,0 +1,2 @@
+(function(_){for(var r in _){_[r].__farm_resource_pot__='index_58d8.js';(globalThis || window || global)['0f6266587c3c880ed98055938bafcf5c'].__farm_module_system__.register(r,_[r])}})({"fae7f52f":function a(a,e,E,t){a._m(e),e.default={AUTH:"auth",TRAVELS:"travels",TRAVEL_PASSENGERS:"travel-detail",MY_TRAVELS:"my-travels",ZONES:"zones",PUCP_DATA:"pucp-data",DRIVER_DETAIL:"driver-detail",PASSENGER_DETAIL:"passenger-detail"};},});
+//# sourceMappingURL=index_58d8.d84192bd.js.map
