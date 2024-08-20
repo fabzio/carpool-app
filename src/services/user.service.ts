@@ -38,6 +38,7 @@ class UserService {
     try {
       const token = getCookie("tkn");
       if (!token || !code) throw new Error();
+
       const res = await http.get(`user/type/${code}`, {
         Authorization: `Bearer ${token}`,
       });
