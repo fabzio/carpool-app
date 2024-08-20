@@ -64,10 +64,19 @@ export default function AuthProvider({ children }: Props) {
         both: true,
       });
       navigate(Paths.CHOOSE_ROLE);
-    } else if (isSuccess) {
+    } else if (isSuccess && type !== "") {
       if (type === "driver")
         syncUser({ ...profileData, fee: parseFloat((profileData as any).fee) });
       if (type === "passenger") syncUser(profileData);
+    } else if (isSuccess && type === "") {
+      if (userInfo?.userType === "DRIVER") {
+        syncUser({
+          ...profileData,
+          fee: parseFloat((profileData as any).fee),
+        });
+      } else if (userInfo?.userType === "PASSENGER") {
+        syncUser(profileData);
+      }
     }
   }, [userInfo, isSuccess, profileData, syncUser]);
 
