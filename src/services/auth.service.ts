@@ -30,6 +30,7 @@ class AuthService {
 
   public static async verify(): Promise<boolean> {
     const token = getCookie("tkn");
+    if (!token) return false;
     try {
       const res = await http.get("auth/verify", {
         Authorization: `Bearer ${token}`,
