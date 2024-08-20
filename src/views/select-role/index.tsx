@@ -26,7 +26,11 @@ export default function SelectRole() {
       if (role === "driver") {
         DriverService.getDriverByCode(user?.code!)
           .then((driver) => {
-            syncUser({ ...driver, both: true });
+            syncUser({
+              ...driver,
+              fee: parseFloat((driver as any).fee),
+              both: true,
+            });
           })
           .catch((error) => {
             toast.error(error.message);

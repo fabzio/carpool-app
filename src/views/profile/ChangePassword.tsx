@@ -3,14 +3,16 @@ import { useMutation } from "@tanstack/react-query";
 import { IconEye, IconEyeClosed } from "@tabler/icons-react";
 
 import UserService from "@services/user.service";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export default function ChangePassword() {
+  const formRef = useRef<HTMLFormElement>(null);
   const [showPassword, setShowPassword] = useState(false);
   const { mutate, isPending } = useMutation({
     mutationFn: UserService.changePassword,
     onSuccess: () => {
       toast.success("Contraseña cambiada correctamente");
+      formRef.current?.reset();
     },
     onError: (error) => {
       toast.error(error.message);
@@ -34,7 +36,7 @@ export default function ChangePassword() {
   };
 
   return (
-    <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
+    <form ref={formRef} className="flex flex-col gap-2" onSubmit={handleSubmit}>
       <div className="flex flex-col">
         <label htmlFor="currentPassword">Contraseña actual</label>
         <input
@@ -78,7 +80,7 @@ export default function ChangePassword() {
       <div className="flex justify-center">
         <button type="submit" disabled={isPending} className="btn btn-primary">
           {isPending ? (
-            <div className="loader loader-spipner" />
+            <span className="loading  loading-spipner" />
           ) : (
             "Cambiar contraseña"
           )}

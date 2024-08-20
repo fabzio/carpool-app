@@ -58,7 +58,7 @@ class UserService {
   }> {
     try {
       const token = getCookie("tkn");
-      const res = await http.post("user/change-password", data, {
+      const res = await http.patch("user/change-password", data, {
         Authorization: `Bearer ${token}`,
       });
       if (!res.success) throw new Error(res.message);

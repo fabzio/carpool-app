@@ -25,7 +25,11 @@ export default function SectionPoppover({ setPage }: Props) {
     },
     onSuccess: (data) => {
       if (typeof data === "object") {
-        syncUser({ ...data, both: true });
+        if (type === "driver") {
+          syncUser({ ...data, both: true });
+        } else {
+          syncUser({ ...data, fee: parseFloat((data as any).fee), both: true });
+        }
       }
     },
     onSettled: () => {

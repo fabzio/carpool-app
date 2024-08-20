@@ -61,7 +61,7 @@ export default function Profile() {
     });
     const newData = {
       ...data,
-      pickUpPoint: data.pickUpPoint?.toUpperCase(),
+      pickUpPoint: data.pickUpPoint,
       plate: data.plate?.toUpperCase(),
       fee: parseFloat(data.fee),
       seats: parseInt(data.seats),

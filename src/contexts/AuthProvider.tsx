@@ -65,7 +65,9 @@ export default function AuthProvider({ children }: Props) {
       });
       navigate(Paths.CHOOSE_ROLE);
     } else if (isSuccess) {
-      syncUser(profileData);
+      if (type === "driver")
+        syncUser({ ...profileData, fee: parseFloat((profileData as any).fee) });
+      if (type === "passenger") syncUser(profileData);
     }
   }, [userInfo, isSuccess, profileData, syncUser]);
 

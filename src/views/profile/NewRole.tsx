@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 export default function NewRole() {
   const { syncUser, type, user, setType } = useSelector((state) => state.user);
   const navigate = useNavigate();
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: (data: Partial<Driver> | Partial<Passenger>) => {
       return type === "passenger"
         ? (DriverService.createDriver({ code: user?.code, ...data }) as any)
@@ -38,7 +38,11 @@ export default function NewRole() {
       if (type === "passenger") {
         DriverService.getDriverByCode(user?.code!)
           .then((driver) => {
-            syncUser({ ...driver, both: true });
+            syncUser({
+              ...driver,
+              fee: parseFloat((driver as any).fee),
+              both: true,
+            });
             setType("driver");
           })
           .catch(() => {
@@ -63,7 +67,11 @@ export default function NewRole() {
       {type === "passenger" && <DriverProfile updateMode={true} />}
       <div className="col-span-2 flex justify-center">
         <button className="btn btn-primary" type="submit">
-          Registrarse como {type === "driver" ? "pasajero" : "conductor "}
+          {isPending ? (
+            <span className="loading loading-spinner" />
+          ) : (
+            `Registrarse como ${type === "driver" ? "pasajero" : "conductor "}`
+          )}
         </button>
       </div>
     </form>
