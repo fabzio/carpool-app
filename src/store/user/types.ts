@@ -7,6 +7,7 @@ interface UserStore {
   syncUser: (user: Partial<Driver> | Partial<Passenger> | null) => void;
   setCode: (code: string) => void;
   setType: (type: "passenger" | "driver" | "") => void;
+  resetUser: () => void;
 }
 
 export default UserStore;

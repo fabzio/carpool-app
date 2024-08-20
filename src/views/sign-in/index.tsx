@@ -2,12 +2,14 @@ import Paths from "@constants/paths.constants";
 import { useSelector } from "@hooks";
 import AuthService from "@services/auth.service";
 import { useMutation } from "@tanstack/react-query";
+import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
+import { removeCookie } from "react-use-cookie";
 
 export default function SignIn() {
   const navigate = useNavigate();
-  const { user, setCode } = useSelector((state) => state.user);
+  const { user, setCode, resetUser } = useSelector((state) => state.user);
   const { mutate, isPending } = useMutation({
     mutationFn: AuthService.logIn,
     onSuccess: (_, { code }) => {
@@ -26,6 +28,11 @@ export default function SignIn() {
     const password = form.get("password") as string;
     mutate({ code, password });
   };
+  useEffect(() => {
+    resetUser();
+    removeCookie("tkn");
+  }, []);
+
   return (
     <div className="flex flex-col justify-center">
       <form

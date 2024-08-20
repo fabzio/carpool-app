@@ -3,14 +3,13 @@ import { useSelector } from "@hooks";
 import ChooseZone from "./choose-zone";
 import VerifyUser from "./verify-user";
 import { IconCaretLeftFilled } from "@tabler/icons-react";
+import { removeCookie } from "react-use-cookie";
 
-const steps = [
-  <ChooseZone />,
-  <VerifyUser />,
-];
+const steps = [<ChooseZone />, <VerifyUser />];
 
 export default function SignUp() {
   const { createUserData } = useSelector((state) => state.signUp);
+  const { resetUser } = useSelector((state) => state.user);
   const [step, setStep] = useState(1);
 
   useEffect(() => {
@@ -23,6 +22,10 @@ export default function SignUp() {
   const handleBack = () => {
     setStep((curr) => (curr > 1 ? curr - 1 : 1));
   };
+  useEffect(() => {
+    resetUser();
+    removeCookie("tkn");
+  }, []);
   return (
     <section>
       <div>

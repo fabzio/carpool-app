@@ -19,6 +19,9 @@ const createUserSlice: SliceStore<UserStore> = (set) => ({
   setType: (type: "passenger" | "driver" | "") => {
     set((state) => ({ ...state, type }));
   },
+  resetUser: () => {
+    set({ type: "", user: {} as unknown as Driver | Passenger });
+  },
 });
 
 export default createUserSlice;
