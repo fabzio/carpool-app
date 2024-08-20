@@ -37,7 +37,8 @@ class UserService {
   }> {
     try {
       const token = getCookie("tkn");
-      if (!token) throw new Error();
+      if (!token || !code) throw new Error();
+
       const res = await http.get(`user/type/${code}`, {
         Authorization: `Bearer ${token}`,
       });
@@ -45,6 +46,25 @@ class UserService {
       return res.data;
     } catch (error) {
       throw new Error();
+    }
+  }
+
+  public static async changePassword(data: {
+    password: string;
+    newPassword: string;
+  }): Promise<{
+    success: boolean;
+    message: string;
+  }> {
+    try {
+      const token = getCookie("tkn");
+      const res = await http.patch("user/change-password", data, {
+        Authorization: `Bearer ${token}`,
+      });
+      if (!res.success) throw new Error(res.message);
+      return res;
+    } catch (error) {
+      throw new Error((error as Error).message);
     }
   }
 }

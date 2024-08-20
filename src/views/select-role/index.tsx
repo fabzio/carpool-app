@@ -26,7 +26,11 @@ export default function SelectRole() {
       if (role === "driver") {
         DriverService.getDriverByCode(user?.code!)
           .then((driver) => {
-            syncUser(driver);
+            syncUser({
+              ...driver,
+              fee: parseFloat((driver as any).fee),
+              both: true,
+            });
           })
           .catch((error) => {
             toast.error(error.message);
@@ -35,7 +39,7 @@ export default function SelectRole() {
       if (role === "passenger") {
         PassengerService.getPassengerByCode(user?.code!)
           .then((passenger) => {
-            syncUser(passenger);
+            syncUser({ ...passenger, both: true });
           })
           .catch((error) => {
             toast.error(error.message);
@@ -48,8 +52,11 @@ export default function SelectRole() {
     <>
       {!showForm && (
         <div className=" flex flex-col items-center justify-center">
-          <h3 className="font-bold text-pretty text-center text-2xl">
-            ¡Bienvenid@ a Carpool, {capitalize(user?.name)}! 😁
+          <h3 className="font-bold text-pretty text-center text-2xl px-2">
+            {user?.state === "INACTIVE"
+              ? "¡Bienvenid@ a Carpool"
+              : "¡Hola de nuevo"}
+            , {capitalize(user?.name)}! 🎉
           </h3>
           <h3 className="text-center text-balance">¿Cómo usarás la app?</h3>
           <div className="w-full flex gap-5 h-32 mt-3">

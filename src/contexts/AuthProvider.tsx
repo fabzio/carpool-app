@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useQueries, useQuery } from "@tanstack/react-query";
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import { Loading } from "@components";
 import Paths from "@constants/paths.constants";
 import QueryKeys from "@constants/queryKeys.constants";
@@ -15,7 +15,8 @@ interface Props {
 }
 
 export default function AuthProvider({ children }: Props) {
-  const { user, syncUser, setType } = useSelector((state) => state.user);
+  const navigate = useNavigate();
+  const { type, user, syncUser, setType } = useSelector((state) => state.user);
   const [{ data: success, isLoading }, { data: userInfo }] = useQueries({
     queries: [
       {
@@ -23,7 +24,7 @@ export default function AuthProvider({ children }: Props) {
         queryFn: AuthService.verify,
       },
       {
-        queryKey: ["user", user?.code],
+        queryKey: ["user"],
         queryFn: () => UserService.getUserType(user?.code!),
       },
     ],
@@ -39,7 +40,7 @@ export default function AuthProvider({ children }: Props) {
       if (userInfo?.userType === "DRIVER") {
         setType("driver");
         return DriverService.getDriverByCode(user?.code!) as any;
-      } else {
+      } else if (userInfo?.userType === "PASSENGER") {
         setType("passenger");
         return PassengerService.getPassengerByCode(user?.code!) as any;
       }
@@ -54,17 +55,21 @@ export default function AuthProvider({ children }: Props) {
         name: userInfo.name,
         state: "INACTIVE",
       });
-    } else if (userInfo?.userType === "BOTH") {
+      navigate(Paths.CHOOSE_ROLE);
+    } else if (userInfo?.userType === "BOTH" && type === "") {
       syncUser({
         ...user,
         name: userInfo.name,
         state: "ACTIVE",
         both: true,
       });
+      navigate(Paths.CHOOSE_ROLE);
     } else if (isSuccess) {
-      syncUser(profileData);
+      if (type === "driver")
+        syncUser({ ...profileData, fee: parseFloat((profileData as any).fee) });
+      if (type === "passenger") syncUser(profileData);
     }
-  }, [userInfo, isSuccess, profileData, syncUser, user]);
+  }, [userInfo, isSuccess, profileData, syncUser]);
 
   if (isLoading || profileLoading) return <Loading />;
   if (!success) return <Navigate to={Paths.SING_IN} />;

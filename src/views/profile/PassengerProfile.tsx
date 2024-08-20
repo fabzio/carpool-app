@@ -9,9 +9,10 @@ export default function PassengerProfile({ updateMode }: Props) {
   return (
     <>
       <div className="col-span-2 flex flex-col">
-        <label htmlFor="">Referencia de Paradero</label>
+        <label htmlFor="pickUpPoint">Referencia de Paradero</label>
         <textarea
-          className="textarea"
+          className="textarea textarea-bordered"
+          id="pickUpPoint"
           name="pickUpPoint"
           maxLength={100}
           defaultValue={passenger.pickUpPoint}

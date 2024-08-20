@@ -23,16 +23,16 @@ class DriverService {
     }
   }
   public static async updateDriver(data: Partial<Driver>): Promise<void> {
-    console.log(data);
-    // const token = getCookie("tkn");
-    // try {
-    //   const res = await http.patch("driver", data, {
-    //     Authorization: `Bearer ${token}`,
-    //   });
-    //   if (!res.success) throw new Error(res.message);
-    // } catch (error) {
-    //   throw new Error((error as Error).message);
-    // }
+
+    const token = getCookie("tkn");
+    try {
+      const res = await http.patch("driver", data, {
+        Authorization: `Bearer ${token}`,
+      });
+      if (!res.success) throw new Error(res.message);
+    } catch (error) {
+      throw new Error((error as Error).message);
+    }
   }
   public static async getDriverByCode(code: Driver["code"]): Promise<Driver> {
     const token = getCookie("tkn");
