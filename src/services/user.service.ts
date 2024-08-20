@@ -46,6 +46,25 @@ class UserService {
       throw new Error();
     }
   }
+
+  public static async changePassword(data: {
+    password: string;
+    newPassword: string;
+  }): Promise<{
+    success: boolean;
+    message: string;
+  }> {
+    try {
+      const token = getCookie("tkn");
+      const res = await http.post("user/change-password", data, {
+        Authorization: `Bearer ${token}`,
+      });
+      if (!res.success) throw new Error(res.message);
+      return res;
+    } catch (error) {
+      throw new Error((error as Error).message);
+    }
+  }
 }
 
 export default UserService;
