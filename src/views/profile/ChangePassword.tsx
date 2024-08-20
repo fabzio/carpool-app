@@ -34,7 +34,7 @@ export default function ChangePassword() {
   };
 
   return (
-    <form className="flex flex-col" onSubmit={handleSubmit}>
+    <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
       <div className="flex flex-col">
         <label htmlFor="currentPassword">Contraseña actual</label>
         <input
@@ -47,9 +47,9 @@ export default function ChangePassword() {
       </div>
       <div className="flex flex-col">
         <label htmlFor="newPassword">Nueva Contraseña</label>
-        <div className="flex">
+        <div className="flex gap-1">
           <input
-            className="input input-bordered"
+            className="input input-bordered flex-grow"
             id="newPassword"
             name="newPassword"
             type={showPassword ? "text" : "password"}
@@ -62,9 +62,9 @@ export default function ChangePassword() {
       </div>
       <div className="flex flex-col">
         <label htmlFor="confirmPassword">Confirmar Contraseña</label>
-        <div className="flex">
+        <div className="flex gap-1">
           <input
-            className="input input-bordered"
+            className="input input-bordered flex-grow "
             id="confirmPassword"
             name="confirmPassword"
             type={showPassword ? "text" : "password"}
@@ -74,6 +74,8 @@ export default function ChangePassword() {
             {showPassword ? <IconEye /> : <IconEyeClosed />}
           </button>
         </div>
+      </div>
+      <div className="flex justify-center">
         <button type="submit" disabled={isPending} className="btn btn-primary">
           {isPending ? (
             <div className="loader loader-spipner" />
