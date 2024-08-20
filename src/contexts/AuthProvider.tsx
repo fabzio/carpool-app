@@ -59,6 +59,7 @@ export default function AuthProvider({ children }: Props) {
         ...user,
         name: userInfo.name,
         state: "ACTIVE",
+        both: true,
       });
     } else if (isSuccess) {
       syncUser(profileData);

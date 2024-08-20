@@ -13,4 +13,5 @@ interface User {
   state: UserState;
   zoneId: number;
   createdAt: Date;
+  both: boolean;
 }
