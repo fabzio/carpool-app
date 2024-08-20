@@ -16,7 +16,7 @@ const createUserSlice: SliceStore<UserStore> = (set) => ({
   setCode: (code: User["code"]) => {
     set((state) => ({ ...state, user: { ...state.user, code } }));
   },
-  setType: (type: "passenger" | "driver") => {
+  setType: (type: "passenger" | "driver" | "") => {
     set((state) => ({ ...state, type }));
   },
 });
