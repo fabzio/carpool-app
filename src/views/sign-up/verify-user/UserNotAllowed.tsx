@@ -1,6 +1,5 @@
 import {
   IconMistOff,
-  IconMoodPuzzled,
   IconMoodSadDizzy,
   IconMoodWink,
 } from "@tabler/icons-react";
