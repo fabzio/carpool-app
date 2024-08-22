@@ -116,9 +116,14 @@ export default function VerifyUser() {
           </form>
         </>
       )}
-      <section className="h-full grid">
+      <section className="h-full grid py-2 place-items-center">
         {isPending && (
-          <p>Accediendo al campus virtual, esto puede tardar un momento....</p>
+          <>
+            <p className="text-center text-balance text-base-content text-opacity-70">
+              Accediendo al campus virtual, esto puede tardar un momento
+            </p>
+            <span className="loading loading-dots loading-xs"></span>
+          </>
         )}
         {isError && <UserNotAllowed message={message!} />}
       </section>
