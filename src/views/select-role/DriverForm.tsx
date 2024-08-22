@@ -50,6 +50,7 @@ export default function DriverForm() {
             name="plate"
             type="text"
             className="input input-bordered"
+            pattern="[A-Z]{3}-[0-9]{3}"
             placeholder="ABC-123"
             required
           />
@@ -72,6 +73,7 @@ export default function DriverForm() {
             name="seats"
             type="number"
             min={0}
+            max={10}
             className="input input-bordered"
             defaultValue={4}
             required
@@ -84,6 +86,7 @@ export default function DriverForm() {
             name="fee"
             type="number"
             min={0}
+            max={99}
             step={0.5}
             className="input input-bordered"
             defaultValue={"5.00"}
