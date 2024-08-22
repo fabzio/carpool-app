@@ -32,8 +32,10 @@ export default function VerifyUser() {
     const formData = new FormData(e.target as HTMLFormElement);
     const code = formData.get("code") as string;
     const phone = formData.get("phone") as string;
+    const email = formData.get("email") as string;
     const phoneRe = /^\d{9}$/;
     const codeRe = /^\d{8}$/;
+    const emailRe = /^[a-zA-Z0-9._-]+@pucp.edu.pe$/i;
     if (!codeRe.test(code.trim())) {
       toast.error("El código PUCP debe tener 8 dígitos");
       return;
@@ -42,10 +44,15 @@ export default function VerifyUser() {
       toast.error("El número de teléfono debe tener 9 dígitos");
       return;
     }
+    if (!emailRe.test(email.trim())) {
+      toast.error("El correo PUCP no es válido");
+      return;
+    }
 
     const data = {
       phone: phone,
       code,
+      email: email.trim(),
       zoneId: createUserData!.zoneId,
     };
     mutate(data);
@@ -59,27 +66,35 @@ export default function VerifyUser() {
             Vamos a conocernos ;)
           </h2>
           <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
-            <label htmlFor="phone" className="text-lg mb-1">
-              Número de comunicación
-            </label>
+            <label htmlFor="phone">Número de comunicación</label>
             <input
               id="phone"
               name="phone"
               type="tel"
               className="input input-bordered"
+              maxLength={9}
+              minLength={9}
               required
               disabled={isPending}
             />
-            <label htmlFor="code" className="text-lg mb-1">
-              Ingresa tu código PUCP
-            </label>
+            <label htmlFor="code">Código PUCP</label>
             <input
               id="code"
               name="code"
               type="tel"
               className="input input-bordered"
+              maxLength={8}
+              minLength={8}
               required
               disabled={isPending}
+            />
+            <label htmlFor="email">Correo PUCP</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              className="input input-bordered"
+              required
             />
             <button
               className={`btn btn-primary mx-10 relative ${
