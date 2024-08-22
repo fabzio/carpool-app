@@ -1,6 +1,6 @@
 {
   "name": "react-template",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "homepage": "http://mycarpoolapp.s3-website-us-east-1.amazonaws.com",
   "scripts": {
     "dev": "farm start",
