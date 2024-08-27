@@ -50,7 +50,7 @@ export default function DriverForm() {
             name="plate"
             type="text"
             className="input input-bordered"
-            pattern="[A-Z]{3}-[0-9]{3}"
+            pattern="[A-Z0-9]{3}-[0-9]{3}"
             placeholder="ABC-123"
             required
           />
