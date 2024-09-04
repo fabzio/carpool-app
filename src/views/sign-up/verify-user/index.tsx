@@ -66,7 +66,7 @@ export default function VerifyUser() {
             Vamos a conocernos ;)
           </h2>
           <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
-            <label htmlFor="phone">Número de comunicación</label>
+            <label htmlFor="phone">Número de celular</label>
             <input
               id="phone"
               name="phone"
