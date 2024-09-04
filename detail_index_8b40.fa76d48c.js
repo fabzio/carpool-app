@@ -1,2 +1,0 @@
-(function(_){for(var r in _){_[r].__farm_resource_pot__='detail_index_8b40.js';(globalThis || window || global)['e9989db5dabeea617f40c8dbfd07f5fb'].__farm_module_system__.register(r,_[r])}})({"e0262023":function i(i,n,o,r){i._m(n),i.o(n,"TravelDirection",()=>D);var D={OUTBOUND:0,INBOUND:1};},});
-//# sourceMappingURL=detail_index_8b40.fa76d48c.js.map

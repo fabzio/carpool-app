@@ -1,2 +1,0 @@
-(function(_){for(var r in _){_[r].__farm_resource_pot__='select-role_index_dd5a.js';(globalThis || window || global)['e9989db5dabeea617f40c8dbfd07f5fb'].__farm_module_system__.register(r,_[r])}})({"65738078":function a(a,e,i,o){a._m(e),a.o(e,"capitalize",()=>t),i("1e2e6a6a"),i("02ab23c1");var t=a=>a?a.toLowerCase().split(" ").map(a=>a.charAt(0).toUpperCase()+a.slice(1)).join(" "):"";},});
-//# sourceMappingURL=select-role_index_dd5a.43e7a9e3.js.map
